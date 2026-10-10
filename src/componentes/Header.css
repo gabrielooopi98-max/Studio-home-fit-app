@@ -3,6 +3,8 @@
   isolation: isolate;
   overflow: hidden;
   display: grid;
+  /* Coluna que nunca cresce além da tela: um nome comprido não estica o banner (nem tira o logo do centro). */
+  grid-template-columns: minmax(0, 1fr);
   gap: 22px;
   margin: 0 -16px;
   padding: 20px 20px 74px;
@@ -104,6 +106,7 @@
 
 .cabecalho__saudacao {
   position: relative;
+  min-width: 0;
   padding-left: 14px;
 }
 
@@ -136,19 +139,23 @@
 }
 
 .cabecalho__saudacao .cabecalho__nome {
+  display: -webkit-box;
   overflow: hidden;
   margin: 2px 0 0;
   color: #fff;
   font-family: var(--fonte-destaque);
-  font-size: 50px;
+  /* Diminui em telas pequenas e quebra em até 2 linhas, sem sair da tela. */
+  font-size: clamp(34px, 12.5vw, 50px);
   font-style: italic;
   font-weight: 800;
   line-height: 0.95;
   letter-spacing: 0.005em;
-  text-overflow: ellipsis;
+  overflow-wrap: anywhere;
   text-transform: uppercase;
-  white-space: nowrap;
   text-shadow: 0 6px 24px rgb(0 0 0 / 35%);
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
 }
 
 .cabecalho__saudacao .cabecalho__frase {
@@ -206,11 +213,6 @@
   text-transform: uppercase;
 }
 
-@media (max-width: 360px) {
-  .cabecalho__saudacao .cabecalho__nome {
-    font-size: 42px;
-  }
-}
 
 @media (min-width: 960px) {
   .cabecalho {
@@ -248,6 +250,8 @@
   }
 
   .cabecalho__saudacao {
+    /* Deixa livre a área dos selos "Próximo treino" e "Aberta hoje", que ficam à direita. */
+    max-width: calc(100% - 290px);
     padding-left: 20px;
   }
 
@@ -256,7 +260,7 @@
   }
 
   .cabecalho__saudacao .cabecalho__nome {
-    font-size: 72px;
+    font-size: clamp(52px, 5vw, 72px);
   }
 
   .cabecalho__saudacao .cabecalho__frase {

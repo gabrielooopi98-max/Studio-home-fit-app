@@ -13,6 +13,12 @@ const FRASE_FIM_DE_SEMANA = 'Descanso também é treino. Segunda tem mais.'
 
 const formatoData = new Intl.DateTimeFormat('pt-BR', { weekday: 'long', day: '2-digit', month: 'short' })
 
+// Na saudação basta primeiro e último nome: "Gabriel Moreira Machado Silva" vira "Gabriel Silva".
+function nomeCurto(nome) {
+    const partes = String(nome ?? '').trim().split(/\s+/).filter(Boolean)
+    return partes.length > 2 ? `${partes[0]} ${partes.at(-1)}` : partes.join(' ')
+}
+
 // Na tela inicial (com saudação) mostra data, frase do dia e selos; nas outras abas,
 // só o rótulo da página, o título e a descrição.
 function Header({ titulo, saudacao = 'Bom dia', contexto, descricao, fichas }) {
@@ -54,7 +60,9 @@ function Header({ titulo, saudacao = 'Bom dia', contexto, descricao, fichas }) {
             <div className="cabecalho__saudacao">
                 <span className="cabecalho__data">{inicio ? data : contexto || 'Área de treino'}</span>
                 {inicio && <p>{saudacao},</p>}
-                <p className={`cabecalho__nome${inicio ? '' : ' cabecalho__nome--pagina'}`}>{titulo || 'Atleta'}</p>
+                <p className={`cabecalho__nome${inicio ? '' : ' cabecalho__nome--pagina'}`} title={titulo || undefined}>
+                    {(inicio ? nomeCurto(titulo) : titulo) || 'Atleta'}
+                </p>
                 <p className="cabecalho__frase">
                     {inicio ? (aberta ? FRASES[indiceDoDia] : FRASE_FIM_DE_SEMANA) : descricao}
                 </p>
