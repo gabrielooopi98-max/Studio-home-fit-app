@@ -92,9 +92,13 @@
 }
 
 @media (min-width: 720px) {
+  /* Janela no meio da tela: altura do conteúdo (fit-content) para o margin:auto centralizar
+     também na vertical. Com height:auto ela esticava até embaixo e o painel ficava no topo. */
   .gaveta {
     inset: 0;
     width: min(560px, calc(100% - 48px));
+    height: fit-content;
+    max-height: calc(100% - 48px);
     margin: auto;
   }
 
