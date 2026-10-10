@@ -1,0 +1,61 @@
+.aviso-sync {
+  position: fixed;
+  top: calc(12px + env(safe-area-inset-top));
+  left: 50%;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: max-content;
+  max-width: calc(100vw - 32px);
+  padding: 10px 14px;
+  border: 1px solid #2c3850;
+  border-radius: 14px;
+  background: rgb(15 20 28 / 92%);
+  box-shadow: 0 16px 32px -16px rgb(0 0 0 / 90%);
+  color: #c9d3ea;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+  transform: translateX(-50%);
+  backdrop-filter: blur(12px);
+  animation: aviso-sync-entrar 0.3s cubic-bezier(0.22, 0.75, 0.3, 1) both;
+}
+
+@keyframes aviso-sync-entrar {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -8px);
+  }
+}
+
+.aviso-sync__ponto {
+  width: 8px;
+  height: 8px;
+  flex: 0 0 8px;
+  border-radius: 50%;
+  background: var(--ouro);
+}
+
+.aviso-sync button {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  flex: 0 0 28px;
+  place-items: center;
+  border: 0;
+  border-radius: 8px;
+  background: rgb(255 255 255 / 6%);
+  color: var(--texto-secundario);
+  cursor: pointer;
+}
+
+.aviso-sync button:focus-visible {
+  outline: 2px solid var(--azul-claro);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aviso-sync {
+    animation: none;
+  }
+}

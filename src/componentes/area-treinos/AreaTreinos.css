@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+.area-treinos {
+  padding: 24px 2px;
+}
+
+.area-treinos h1 {
+  margin: 0;
+  color: #f3f5ff;
+  font-size: 20px;
+  font-family: "Poppins", system-ui, sans-serif;
+  text-transform: uppercase;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.area-treinos p {
+  margin: 7px 0 0;
+  color: #929bb7;
+  font-size: 13px;
+  line-height: 1.5;
+}

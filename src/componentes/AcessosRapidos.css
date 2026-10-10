@@ -1,0 +1,293 @@
+.acessos-rapidos {
+    margin-top: 26px;
+}
+
+.acessos-rapidos h2 {
+    margin: 0 2px 12px;
+    font-size: 18px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #f3f5ff;
+    text-align: center;
+}
+
+.acessos-rapidos h2::after {
+    content: "";
+    display: block;
+    width: 76px;
+    height: 2px;
+    margin: 12px auto 0;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #3458c9, rgb(52 88 201 / 10%));
+}
+
+/* grade 2 x 2 */
+.cards-atalhos-rapidos {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 22px;
+}
+
+/* estilo igual para todos os cards */
+.card-atalho {
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    min-width: 0;
+    max-height: 200px;
+    padding: 16px;
+    border-radius: 18px;
+    border: 1px solid #202a36;
+    background: #0d1118;
+    color: #f3f5ff;
+    text-align: left;
+    text-decoration: none;
+    font: inherit;
+    cursor: pointer;
+    --brilho: rgb(82 118 242 / 24%);
+    --borda-hover: rgb(82 118 242 / 60%);
+    --sombra-hover: rgb(36 80 232 / 55%);
+    transition:
+        transform 0.35s cubic-bezier(0.22, 0.75, 0.3, 1),
+        border-color 0.3s ease,
+        box-shadow 0.35s ease;
+}
+
+/* luz que segue o mouse (posição vem do JS em --mx / --my) */
+.card-atalho::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(170px circle at var(--mx, 50%) var(--my, 0%), var(--brilho), transparent 70%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+/* seta que aparece no hover dos cards clicáveis */
+.seta-atalho {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 1;
+    width: 18px;
+    height: 18px;
+    color: var(--azul-claro);
+    opacity: 0;
+    transform: translate(-6px, 6px);
+    transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.22, 0.75, 0.3, 1);
+}
+
+.card-atalho:active {
+    transform: scale(0.98);
+}
+
+.card-atalho:focus-visible {
+    outline: 2px solid #5a76b8;
+    outline-offset: 3px;
+}
+
+/* detalhe de cor no canto */
+.card-atalho::after {
+    content: "";
+    position: absolute;
+    right: -30px;
+    top: -48px;
+    width: 155px;
+    height: 120px;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+/* quadradinho do ícone */
+.icone-atalho {
+    position: relative;
+    z-index: 1;
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgb(255 255 255 / 8%);
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    background: #171d29;
+    color: #8ea2cd;
+    transition:
+        transform 0.35s cubic-bezier(0.22, 0.75, 0.3, 1),
+        color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+/* textos */
+.texto-atalho {
+    position: relative;
+    z-index: 1;
+    min-width: 0;
+    max-width: 100%;
+}
+
+.texto-atalho strong {
+    display: block;
+    text-transform: uppercase;
+    font-weight: 800;
+    font-size: 13px;
+    line-height: 1.35;
+    letter-spacing: 0.015em;
+}
+
+/* ---------- detalhe sutil de cada card ---------- */
+.card-meu-treino::after         { background: rgb(52 88 201 / 10%); }
+.card-loja::after               { background: rgb(52 88 201 / 7%); }
+.card-pagamentos::after         { background: rgb(52 88 201 / 6%); }
+.card-whatsapp::after           { background: rgb(52 88 201 / 8%); }
+
+.card-whatsapp {
+    --brilho: rgb(79 211 138 / 18%);
+    --borda-hover: rgb(79 211 138 / 50%);
+    --sombra-hover: rgb(37 160 95 / 45%);
+}
+
+.card-whatsapp .seta-atalho {
+    color: #4fd38a;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .card-atalho:not(:disabled):hover {
+        border-color: var(--borda-hover);
+        box-shadow:
+            inset 0 1px 0 rgb(255 255 255 / 6%),
+            0 18px 34px -18px var(--sombra-hover);
+        transform: translateY(-4px);
+    }
+
+    .card-atalho:not(:disabled):hover::before,
+    .card-atalho:not(:disabled):hover .seta-atalho {
+        opacity: 1;
+    }
+
+    .card-atalho:not(:disabled):hover .seta-atalho {
+        transform: none;
+    }
+
+    .card-atalho:not(:disabled):hover .icone-atalho {
+        transform: translateY(-2px) rotate(-6deg) scale(1.08);
+        color: #c7d5ff;
+        box-shadow: 0 10px 20px -10px var(--sombra-hover);
+    }
+
+    .card-whatsapp:hover .icone-atalho {
+        color: #6ee3a2;
+    }
+
+    .card-atalho:not(:disabled):active {
+        transform: translateY(-1px) scale(0.98);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .card-atalho,
+    .icone-atalho,
+    .seta-atalho {
+        transition: none;
+    }
+
+    .card-atalho:active,
+    .card-atalho:not(:disabled):hover,
+    .card-atalho:not(:disabled):hover .icone-atalho {
+        transform: none;
+    }
+}
+
+@media (min-width: 960px) {
+    .acessos-rapidos {
+        position: relative;
+        z-index: 2;
+        margin-top: -58px;
+        padding: 22px;
+        border: 1px solid rgb(255 255 255 / 8%);
+        border-radius: 24px;
+        background:
+            radial-gradient(circle at 100% 0%, rgb(52 88 201 / 6%), transparent 36%),
+            #0a0d12;
+        box-shadow:
+            inset 0 1px 0 rgb(255 255 255 / 3%),
+            0 30px 55px -28px rgb(0 0 0 / 85%);
+    }
+
+    .acessos-rapidos h2 {
+        text-align: left;
+    }
+
+    .acessos-rapidos h2::after {
+        width: 56px;
+        margin: 10px 0 0;
+    }
+
+    .cards-atalhos-rapidos {
+        gap: 10px;
+        margin-top: 18px;
+    }
+
+    .card-atalho {
+        min-height: 126px;
+        box-shadow: inset 0 1px 0 rgb(255 255 255 / 3%);
+    }
+}
+
+/* ---------- subtítulos e itens ainda indisponíveis ---------- */
+.texto-atalho small {
+    display: block;
+    margin-top: 3px;
+    color: #7f8b9d;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.texto-atalho .selo-em-breve {
+    display: inline-block;
+    margin-top: 6px;
+    padding: 2px 7px;
+    border: 1px solid rgb(255 255 255 / 10%);
+    border-radius: 999px;
+    color: #8b939f;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.card-atalho:disabled {
+    cursor: default;
+    opacity: 0.6;
+}
+
+.card-atalho:disabled:active {
+    transform: none;
+}
+
+.card-meu-treino {
+    border-color: rgb(74 125 255 / 28%);
+    background:
+        radial-gradient(circle at 100% 0%, rgb(74 125 255 / 14%), transparent 55%),
+        #0d1118;
+}
+
+.card-meu-treino .icone-atalho {
+    background: linear-gradient(145deg, var(--azul-brilho), var(--azul));
+    color: #fff;
+}
+
+.card-meu-treino .icone-atalho svg {
+    width: 26px;
+    height: 26px;
+}
+
+.card-whatsapp .icone-atalho {
+    color: #4fd38a;
+}

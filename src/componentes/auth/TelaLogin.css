@@ -1,0 +1,328 @@
+.login {
+  display: flex;
+  min-height: 100vh;
+  min-height: 100dvh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  padding: 32px 16px calc(24px + env(safe-area-inset-bottom));
+  background:
+    radial-gradient(ellipse 90% 45% at 50% 0%, rgb(36 80 232 / 30%), transparent 70%),
+    linear-gradient(180deg, #080c18 0%, var(--fundo-app) 55%);
+  color: var(--texto-principal);
+}
+
+.login__marca img {
+  display: block;
+  width: min(230px, 64vw);
+  height: auto;
+  filter: drop-shadow(0 6px 22px rgb(82 118 242 / 40%));
+}
+
+.login__cartao {
+  display: grid;
+  width: 100%;
+  max-width: 420px;
+  gap: 6px;
+  padding: 24px 22px 22px;
+  border: 1px solid var(--borda-suave);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 100% 0%, rgb(36 80 232 / 12%), transparent 40%),
+    var(--superficie);
+  box-shadow: 0 30px 60px -30px rgb(0 0 0 / 90%);
+  animation: login-entrada 0.4s cubic-bezier(0.22, 0.75, 0.3, 1) both;
+}
+
+@keyframes login-entrada {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+.login__abas {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 18px;
+  padding: 4px;
+  border-radius: 14px;
+  background: #0a0e14;
+}
+
+.login__abas button {
+  position: relative;
+  z-index: 1;
+  height: 40px;
+  border: 0;
+  background: none;
+  color: var(--texto-secundario);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.login__abas button[aria-selected="true"] {
+  color: #fff;
+}
+
+.login__abas button:focus-visible {
+  border-radius: 10px;
+  outline: 2px solid var(--azul-claro);
+  outline-offset: -2px;
+}
+
+.login__abas-indicador {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  width: calc(50% - 4px);
+  border-radius: 10px;
+  background: linear-gradient(145deg, var(--azul-brilho), var(--azul));
+  box-shadow: 0 8px 18px -10px rgb(36 80 232 / 80%);
+  transition: transform 0.3s cubic-bezier(0.22, 0.75, 0.3, 1);
+}
+
+.login__abas-indicador.direita {
+  transform: translateX(100%);
+}
+
+.login__cartao h1 {
+  margin: 0;
+  font-family: var(--fonte-destaque);
+  font-size: 30px;
+  font-style: italic;
+  font-weight: 800;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.login__texto {
+  margin: 4px 0 14px;
+  color: var(--texto-secundario);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.login__form {
+  display: grid;
+  gap: 14px;
+}
+
+.login-campo {
+  display: grid;
+  gap: 6px;
+}
+
+.login-campo > span:first-child {
+  color: #c9d3ea;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.login-campo input {
+  width: 100%;
+  height: 50px;
+  padding: 0 14px;
+  border: 1px solid #253043;
+  border-radius: 14px;
+  background: #0a0e14;
+  color: var(--texto-principal);
+  font: inherit;
+  font-size: 16px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.login-campo input:focus {
+  border-color: var(--azul-brilho);
+  outline: none;
+  box-shadow: 0 0 0 3px rgb(82 118 242 / 22%);
+}
+
+.login-campo__senha {
+  position: relative;
+  display: block;
+}
+
+.login-campo__senha input {
+  padding-right: 50px;
+}
+
+.login-campo__senha button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border: 0;
+  border-radius: 10px;
+  background: none;
+  color: var(--texto-secundario);
+  cursor: pointer;
+}
+
+.login-campo__senha button:hover {
+  color: var(--texto-principal);
+}
+
+.login-campo__senha button:focus-visible {
+  outline: 2px solid var(--azul-claro);
+}
+
+.login-campo__senha svg {
+  width: 20px;
+  height: 20px;
+}
+
+.login__link {
+  justify-self: start;
+  padding: 4px 0;
+  border: 0;
+  background: none;
+  color: var(--azul-claro);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.login__link--direita {
+  justify-self: end;
+  margin-top: -6px;
+}
+
+.login__link:hover {
+  text-decoration: underline;
+}
+
+.login__link:focus-visible {
+  border-radius: 4px;
+  outline: 2px solid var(--azul-claro);
+}
+
+.login__mensagem {
+  margin: 0;
+  padding: 11px 13px;
+  border-radius: 12px;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.login__mensagem--erro {
+  border: 1px solid rgb(255 120 120 / 30%);
+  background: rgb(255 90 90 / 10%);
+  color: #ffb2b2;
+}
+
+.login__mensagem--sucesso {
+  border: 1px solid rgb(61 220 132 / 28%);
+  background: rgb(61 220 132 / 10%);
+  color: #a6f0c6;
+}
+
+.login__botao {
+  display: grid;
+  height: 54px;
+  margin-top: 4px;
+  place-items: center;
+  border: 0;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--azul-brilho), var(--azul));
+  box-shadow: 0 14px 28px -14px rgb(36 80 232 / 80%);
+  color: #fff;
+  font-family: var(--fonte-destaque);
+  font-size: 20px;
+  font-style: italic;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: filter 0.2s ease, transform 0.12s ease;
+}
+
+.login__botao:hover:not(:disabled) {
+  filter: brightness(1.08);
+}
+
+.login__botao:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.login__botao:disabled {
+  cursor: progress;
+  opacity: 0.8;
+}
+
+.login__botao:focus-visible {
+  outline: 2px solid #c7d5ff;
+  outline-offset: 3px;
+}
+
+.login__spinner {
+  width: 22px;
+  height: 22px;
+  border: 3px solid rgb(255 255 255 / 30%);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: login-girar 0.8s linear infinite;
+}
+
+@keyframes login-girar {
+  to { transform: rotate(360deg); }
+}
+
+.login__rodape {
+  margin: 0;
+  color: #4d5869;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .login__cartao,
+  .login__abas-indicador {
+    animation: none;
+    transition: none;
+  }
+}
+
+.login-campo input::placeholder {
+  color: #4d5869;
+}
+
+.login-campo__dica {
+  color: var(--texto-secundario);
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+/* telas baixas (celular deitado ou com teclado aberto): menos respiro */
+@media (max-height: 700px) {
+  .login {
+    justify-content: flex-start;
+    gap: 18px;
+    padding-top: 20px;
+  }
+
+  .login__marca img {
+    width: min(170px, 50vw);
+  }
+}
+
+@media (max-width: 360px) {
+  .login__cartao {
+    padding: 20px 16px 18px;
+  }
+
+  .login__cartao h1 {
+    font-size: 26px;
+  }
+}

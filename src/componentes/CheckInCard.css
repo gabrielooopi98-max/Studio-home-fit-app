@@ -1,0 +1,195 @@
+.checkin-card {
+  position: relative;
+  z-index: 2;
+  margin-top: -50px;
+  padding: 20px;
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 100% 0%, rgb(36 80 232 / 13%), transparent 34%),
+    #0d1118;
+  border: 1px solid rgb(160 172 240 / 26%);
+  box-shadow: 0 24px 48px -24px rgba(0, 0, 0, 0.9);
+  color: #f3f5ff;
+}
+
+.checkin-eyebrow {
+  display: block;
+  margin-bottom: 5px;
+  color: #a9bdff;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.checkin-topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.checkin-topo h1 { margin: 0; font-size: 19px; }
+.checkin-topo p  { margin: 2px 0 0; font-size: 13.5px; color: #8390a3; }
+
+.checkin-contador {
+  --meta: 0%;
+  position: relative;
+  display: grid;
+  width: 70px;
+  height: 70px;
+  flex: 0 0 70px;
+  place-content: center;
+  justify-items: center;
+  border-radius: 50%;
+  background: conic-gradient(var(--azul-brilho) var(--meta), #1b2230 var(--meta));
+}
+.checkin-contador::before {
+  position: absolute;
+  inset: 5px;
+  border-radius: inherit;
+  background: #0d1118;
+  content: "";
+}
+.checkin-contador--meta {
+  background: conic-gradient(var(--energia) 100%, transparent 0);
+  box-shadow: 0 0 26px -6px rgb(74 125 255 / 50%);
+}
+.checkin-contador strong {
+  position: relative;
+  display: block;
+  font-size: 28px;
+  line-height: 1;
+}
+.checkin-contador strong small { color: #8390a3; font-size: 15px; }
+.checkin-contador span {
+  position: relative;
+  color: #8390a3;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.checkin-semana {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+  margin: 18px 0;
+}
+.checkin-dia {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #8390a3;
+}
+.checkin-dia span {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 13px;
+  font-weight: 800;
+  color: #f3f5ff;
+  background: #151b24;
+}
+.checkin-dia span.feito {
+  background: #2450e8;
+  box-shadow: 0 6px 18px -7px rgb(0 0 0 / 80%);
+}
+.checkin-dia.hoje { color: #f3f5ff; }
+.checkin-dia.hoje span:not(.feito) { box-shadow: inset 0 0 0 2px #7898ff; }
+
+.checkin-botao {
+  width: 100%;
+  height: 54px;
+  border: 0;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #2450e8, #5276f2);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 12px 26px -13px rgb(0 0 0 / 90%);
+  transition: transform 0.12s;
+}
+.checkin-botao:hover  { background: linear-gradient(135deg, #315ced, #6888f7); }
+.checkin-botao:active { transform: scale(0.97); }
+
+.checkin-feito {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 54px;
+  border-radius: 16px;
+  gap: 8px;
+  border: 1px solid rgb(61 220 132 / 28%);
+  background: rgb(61 220 132 / 10%);
+  color: var(--sucesso);
+  font-weight: 800;
+}
+
+.checkin-fechado {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 54px;
+  border: 1px solid rgb(255 255 255 / 8%);
+  border-radius: 16px;
+  background: #111723;
+  color: var(--texto-secundario);
+  font-weight: 700;
+}
+
+@media (min-width: 960px) {
+  .checkin-card {
+    margin-top: -58px;
+    padding: 28px 30px 30px;
+    border-color: rgb(255 255 255 / 10%);
+    border-radius: 24px;
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 3%),
+      0 30px 55px -28px rgb(0 0 0 / 85%);
+  }
+
+  .checkin-topo h1 {
+    font-size: 25px;
+    letter-spacing: -0.03em;
+  }
+
+  .checkin-topo p {
+    margin-top: 5px;
+    font-size: 14px;
+  }
+
+  .checkin-semana {
+    gap: 12px;
+    margin: 25px 0;
+  }
+
+  .checkin-dia {
+    gap: 9px;
+    font-size: 12px;
+  }
+
+  .checkin-dia span {
+    width: 42px;
+    height: 42px;
+    font-size: 14px;
+  }
+
+  .checkin-botao,
+  .checkin-feito {
+    height: 58px;
+  }
+
+  .checkin-botao {
+    background: linear-gradient(135deg, #2450e8, #5276f2);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 18%),
+      0 16px 28px -16px rgb(0 0 0 / 88%);
+  }
+}

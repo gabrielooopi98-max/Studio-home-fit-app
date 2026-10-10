@@ -1,0 +1,201 @@
+/* camada fixa no rodapé da tela */
+.barra-navegacao {
+    position: fixed;
+    left: 50%;
+    bottom: 0;
+    z-index: 30;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 1700px;
+    padding: 0 16px calc(14px + env(safe-area-inset-bottom, 0px));
+    transform: translateX(-50%);
+    pointer-events: none;   /* só a barra recebe toque, não o espaço em volta */
+}
+
+/* a barra flutuante em si */
+.barra-navegacao-itens {
+    box-sizing: border-box;
+    pointer-events: auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 8px;
+    border-radius: 26px;
+    background: rgb(9 12 17 / 92%);
+    backdrop-filter: blur(18px) saturate(150%);
+    -webkit-backdrop-filter: blur(18px) saturate(150%);
+    border: 1px solid rgb(160 172 240 / 26%);
+    box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.8);
+}
+
+.barra-navegacao-marca {
+    display: none;
+}
+
+/* cada botão */
+.item-navegacao {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    padding: 7px 2px;
+    border: 0;
+    border-radius: 18px;
+    background: none;
+    color: #7f8b9d;
+    font: inherit;
+    font-size: 11.5px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, transform 0.12s;
+}
+
+.item-navegacao:hover {
+    background: rgb(36 80 232 / 14%);
+}
+
+.item-navegacao:active {
+    transform: scale(0.94);
+}
+
+/* aba aberta */
+.item-navegacao.ativo {
+    background: linear-gradient(145deg, rgb(36 80 232 / 44%), rgb(20 44 131 / 28%));
+    color: #ffffff;
+}
+
+.item-navegacao.ativo svg {
+    color: #a9bdff;
+    animation: pulo-icone-aba 0.34s cubic-bezier(0.3, 1.4, 0.5, 1);
+}
+
+@keyframes pulo-icone-aba {
+    0% {
+        transform: translateY(0) scale(1);
+    }
+
+    45% {
+        transform: translateY(-3px) scale(1.14);
+    }
+
+    100% {
+        transform: translateY(0) scale(1);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .item-navegacao.ativo svg {
+        animation: none;
+    }
+}
+
+@media (min-width: 960px) {
+    .barra-navegacao {
+        top: 32px;
+        bottom: auto;
+        left: max(24px, calc(50% - 826px));
+        width: 92px;
+        padding: 0;
+        transform: none;
+    }
+
+    .barra-navegacao-itens {
+        grid-template-columns: 1fr;
+        gap: 7px;
+        padding: 9px;
+        border-radius: 24px;
+        background: rgb(9 12 17 / 95%);
+        box-shadow: 0 24px 50px -18px rgb(0 0 0 / 85%);
+    }
+
+    .barra-navegacao-marca {
+        display: grid;
+        height: 66px;
+        margin-bottom: 2px;
+        place-items: center;
+        border-bottom: 1px solid rgb(255 255 255 / 7%);
+    }
+
+    .barra-navegacao-marca span {
+        display: grid;
+        width: 40px;
+        height: 40px;
+        place-items: center;
+        border: 1px solid rgb(190 202 255 / 38%);
+        border-radius: 13px;
+        background: linear-gradient(145deg, #5276f2, #2450e8);
+        color: #fff;
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        box-shadow:
+            inset 0 1px 0 rgb(255 255 255 / 16%),
+            0 10px 22px -10px rgb(0 0 0 / 78%);
+    }
+
+    .item-navegacao {
+        gap: 7px;
+        min-height: 68px;
+        padding: 10px 4px;
+        border-radius: 16px;
+        font-size: 11px;
+    }
+
+    .item-navegacao svg {
+        width: 25px;
+        height: 25px;
+    }
+
+    .item-navegacao.ativo svg {
+        filter: none;
+    }
+}
+.item-navegacao small {
+    display: none;
+}
+
+.item-navegacao--em-breve {
+    position: relative;
+    opacity: 0.45;
+    cursor: default;
+}
+
+.item-navegacao--em-breve:hover {
+    background: none;
+}
+
+.item-navegacao--em-breve:active {
+    transform: none;
+}
+
+.item-navegacao--em-breve small {
+    position: absolute;
+    top: 2px;
+    right: 4px;
+    display: block;
+    padding: 1px 4px;
+    border-radius: 4px;
+    background: #1b2230;
+    color: #a9b3c4;
+    font-size: 7px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.item-navegacao.ativo {
+    background: linear-gradient(145deg, rgb(74 125 255 / 14%), rgb(36 80 232 / 30%));
+    box-shadow: inset 0 -2px 0 var(--energia);
+}
+
+.item-navegacao.ativo svg {
+    color: var(--azul-claro);
+}
+
+@media (min-width: 640px) and (max-width: 959px) {
+    .barra-navegacao-itens {
+        max-width: 520px;
+    }
+}

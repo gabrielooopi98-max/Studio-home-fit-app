@@ -1,0 +1,298 @@
+.cabecalho {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  gap: 22px;
+  margin: 0 -16px;
+  padding: 20px 20px 74px;
+  border-bottom: 1px solid rgb(142 171 255 / 14%);
+  border-radius: 0 0 32px 32px;
+  background:
+    radial-gradient(ellipse 70% 60% at 100% 0%, rgb(82 118 242 / 38%), transparent 70%),
+    radial-gradient(ellipse 60% 50% at 0% 100%, rgb(36 80 232 / 22%), transparent 70%),
+    linear-gradient(160deg, #05070b 0%, #0b1433 45%, #14307f 80%, #1d43c4 100%);
+  color: #fff;
+}
+
+.cabecalho__arte {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* letra gigante do treino do dia: só no desktop, onde há espaço */
+.cabecalho__letra {
+  display: none;
+  position: absolute;
+  color: transparent;
+  font-family: var(--fonte-destaque);
+  font-size: 230px;
+  font-style: italic;
+  font-weight: 800;
+  line-height: 0.8;
+  -webkit-text-stroke: 1.5px rgb(142 171 255 / 22%);
+  background: linear-gradient(180deg, rgb(142 171 255 / 16%), transparent 80%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.cabecalho__setas {
+  position: absolute;
+  right: -64px;
+  top: 92px;
+  width: 200px;
+  height: auto;
+  opacity: 0.7;
+  filter: drop-shadow(0 18px 30px rgb(0 0 0 / 45%));
+}
+
+.cabecalho__topo {
+  display: flex;
+  justify-content: center;
+}
+
+.cabecalho__logo {
+  display: block;
+  width: min(205px, 62vw);
+  height: auto;
+  margin-bottom: 10px;
+  filter: drop-shadow(0 6px 22px rgb(82 118 242 / 45%));
+}
+
+.cabecalho__rodape {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.cabecalho__status {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 11px;
+  border: 1px solid rgb(255 255 255 / 12%);
+  border-radius: 999px;
+  background: rgb(5 7 11 / 45%);
+  color: rgb(231 238 255 / 72%);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  backdrop-filter: blur(10px);
+}
+
+.cabecalho__status i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #6b7686;
+}
+
+.cabecalho__status--aberta i {
+  background: var(--sucesso);
+  box-shadow: 0 0 0 0 rgb(61 220 132 / 55%);
+  animation: cabecalho-pulso 2.2s ease-out infinite;
+}
+
+@keyframes cabecalho-pulso {
+  70%, 100% { box-shadow: 0 0 0 7px rgb(61 220 132 / 0%); }
+}
+
+.cabecalho__saudacao {
+  position: relative;
+  padding-left: 14px;
+}
+
+.cabecalho__saudacao::before {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 0;
+  width: 3px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, var(--azul-claro), rgb(36 80 232 / 20%));
+  content: "";
+}
+
+.cabecalho__data {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--azul-claro);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.cabecalho__saudacao p {
+  margin: 0;
+  color: rgb(231 238 255 / 78%);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.cabecalho__saudacao .cabecalho__nome {
+  overflow: hidden;
+  margin: 2px 0 0;
+  color: #fff;
+  font-family: var(--fonte-destaque);
+  font-size: 50px;
+  font-style: italic;
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: 0.005em;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-shadow: 0 6px 24px rgb(0 0 0 / 35%);
+}
+
+.cabecalho__saudacao .cabecalho__frase {
+  max-width: 250px;
+  margin-top: 8px;
+  color: rgb(231 238 255 / 70%);
+  font-size: 12.5px;
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+.cabecalho__treino {
+  display: flex;
+  align-items: center;
+  justify-self: start;
+  gap: 11px;
+  max-width: 100%;
+  padding: 7px 16px 7px 7px;
+  border: 1px solid rgb(142 171 255 / 20%);
+  border-radius: 14px;
+  background: rgb(5 7 11 / 42%);
+  backdrop-filter: blur(12px);
+}
+
+.cabecalho__treino b {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  place-items: center;
+  border-radius: 10px;
+  background: linear-gradient(145deg, var(--azul-brilho), var(--azul));
+  font-family: var(--fonte-destaque);
+  font-size: 22px;
+  font-style: italic;
+  font-weight: 800;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 22%);
+}
+
+.cabecalho__treino span {
+  display: grid;
+  min-width: 0;
+  overflow: hidden;
+  font-size: 13px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cabecalho__treino small {
+  color: var(--texto-secundario);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 360px) {
+  .cabecalho__saudacao .cabecalho__nome {
+    font-size: 42px;
+  }
+}
+
+@media (min-width: 960px) {
+  .cabecalho {
+    min-height: 300px;
+    grid-template-columns: minmax(0, 1fr);
+    align-content: start;
+    gap: 30px;
+    margin: 0;
+    padding: 30px 48px 96px;
+    border: 1px solid rgb(255 255 255 / 7%);
+    border-radius: 30px;
+    background:
+      radial-gradient(ellipse 45% 80% at 85% 10%, rgb(82 118 242 / 34%), transparent 70%),
+      radial-gradient(ellipse 40% 60% at 0% 100%, rgb(36 80 232 / 18%), transparent 70%),
+      linear-gradient(115deg, #05070b 0%, #0b1433 40%, #14307f 75%, #1d43c4 100%);
+    box-shadow: 0 24px 58px -42px rgb(0 0 0 / 72%);
+  }
+
+  .cabecalho__letra {
+    display: block;
+    right: 280px;
+    bottom: 30px;
+    font-size: 330px;
+  }
+
+  .cabecalho__setas {
+    top: 30px;
+    right: -50px;
+    width: 340px;
+    opacity: 0.6;
+  }
+
+  .cabecalho__logo {
+    width: 290px;
+  }
+
+  .cabecalho__saudacao {
+    padding-left: 20px;
+  }
+
+  .cabecalho__saudacao p {
+    font-size: 15px;
+  }
+
+  .cabecalho__saudacao .cabecalho__nome {
+    font-size: 72px;
+  }
+
+  .cabecalho__saudacao .cabecalho__frase {
+    max-width: none;
+    font-size: 14px;
+  }
+
+  .cabecalho__rodape {
+    position: absolute;
+    right: 48px;
+    bottom: 96px;
+    flex-direction: column-reverse;
+    align-items: flex-end;
+  }
+
+  .cabecalho__treino {
+    padding-right: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cabecalho__status--aberta i {
+    animation: none;
+  }
+}
+
+/* títulos das páginas internas (ex.: nome da ficha) quebram linha em vez de cortar */
+.cabecalho__saudacao .cabecalho__nome--pagina {
+  font-size: 40px;
+  line-height: 1;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+@media (min-width: 960px) {
+  .cabecalho__saudacao .cabecalho__nome--pagina {
+    font-size: 56px;
+  }
+}

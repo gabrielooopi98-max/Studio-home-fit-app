@@ -1,0 +1,177 @@
+/* ==========================================================================
+   Interações — hover e clique dos botões do app e do painel.
+   Carregado por último (main.jsx). Tudo discreto: um leve brilho, borda que
+   acende e, nos botões principais, uma subida de 1px. No celular (sem mouse)
+   só vale o efeito de toque.
+   ========================================================================== */
+
+/* Transição comum a todos os botões tratados aqui. */
+:is(
+  .adm-botao, .adm-icone-botao, .adm-barra-movel__menu, .adm-mes__troca button, .adm-exercicio__ordem button,
+  .adm-passo button, .adm-treinos__abas button, .adm-dias button, .adm-chips button, .adm-segmento button,
+  .adm-abas-pagina button, .adm-voltar, .adm-exercicio__mais, .adm-link, .seletor__criar,
+  .treino-hoje__botao--secundario, .tela-estado__caixa button, .conta-peso__form button, .conta-sessao__painel,
+  .conta-meta button, .conta-recordes__lista button, .aviso-sync button, .login__abas button,
+  .loja__abas button, .loja__etiquetas button, .painel-filtros__ordens label, .card-produto__adicionar,
+  .carrinho-barra, .botao-primario, .botao-secundario, .botao-perigo, .botao-texto, .sequencia__rodape,
+  .sequencia__link, .cards-treinos__descanso-dias button, .treino-descanso__acoes button, .resultado-dias
+) {
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease,
+    box-shadow 0.2s ease,
+    filter 0.18s ease,
+    transform 0.15s ease;
+}
+
+@media (hover: hover) {
+  /* ---------------------------------------------------------------- principais (azuis) */
+  :is(
+    .adm-botao:not(.adm-botao--secundario, .adm-botao--adicionar, .adm-botao--whats),
+    .tela-estado__caixa button, .conta-peso__form button, .conta-sessao__painel, .botao-primario
+  ):hover:not(:disabled) {
+    filter: brightness(1.08);
+    transform: translateY(-1px);
+    box-shadow: 0 10px 22px -12px rgb(36 80 232 / 75%);
+  }
+
+  /* A barra do carrinho é fixa e entra com animação: só clareia. */
+  .carrinho-barra:hover {
+    filter: brightness(1.06);
+  }
+
+  .adm-botao--whats:hover {
+    filter: brightness(1.12);
+    transform: translateY(-1px);
+    box-shadow: 0 10px 22px -12px rgb(31 107 69 / 80%);
+  }
+
+  /* ---------------------------------------------------------------- secundários (contorno) */
+  :is(
+    .adm-botao--secundario, .treino-hoje__botao--secundario, .botao-secundario, .card-produto__adicionar,
+    .conta-meta button, .loja__etiquetas button:not(.loja__limpar), .cards-treinos__descanso-dias button,
+    .treino-descanso__acoes button
+  ):hover:not(:disabled) {
+    border-color: #3a4a66;
+    background-color: #1a2333;
+    color: #fff;
+    filter: none;
+  }
+
+  .adm-botao--adicionar:hover:not(:disabled),
+  .seletor__criar:hover {
+    border-color: var(--azul-brilho);
+    background-color: rgb(82 118 242 / 7%);
+    color: #fff;
+    filter: none;
+  }
+
+  .botao-perigo:hover:not(:disabled) {
+    border-color: rgb(255 120 120 / 45%);
+    background-color: rgb(255 90 90 / 14%);
+  }
+
+  /* ---------------------------------------------------------------- quadradinhos com ícone */
+  :is(.adm-icone-botao, .adm-barra-movel__menu, .adm-mes__troca button, .adm-exercicio__ordem button:not(.perigo)):hover:not(:disabled) {
+    border-color: #3a4a66;
+    background-color: #161e2b;
+    color: #fff;
+  }
+
+  .adm-icone-botao--whats:hover {
+    border-color: rgb(61 220 132 / 35%);
+    background-color: rgb(61 220 132 / 8%);
+    color: #b5e6c9;
+  }
+
+  :is(.aviso-sync button, .conta-recordes__lista button):hover {
+    background-color: rgb(255 255 255 / 10%);
+    color: var(--texto-principal);
+  }
+
+  .adm-passo button:hover:not(:disabled) {
+    background-color: #161e2b;
+  }
+
+  /* ---------------------------------------------------------------- escolhas (chips, dias, abas) */
+  :is(
+    .adm-chips button:not([aria-pressed="true"]), .adm-dias button:not([aria-pressed="true"]),
+    .adm-treinos__abas button:not([aria-selected="true"])
+  ):hover {
+    border-color: #3a4a66;
+    background-color: #161e2b;
+    color: #fff;
+  }
+
+  .painel-filtros__ordens label:not(.marcado):hover {
+    border-color: #33415a;
+    background-color: #111722;
+  }
+
+  :is(
+    .adm-segmento button:not([aria-pressed="true"]), .adm-abas-pagina button:not([aria-current="page"]),
+    .loja__abas button:not([aria-selected="true"])
+  ):hover {
+    background-color: rgb(255 255 255 / 4%);
+    color: var(--texto-principal);
+  }
+
+  .login__abas button:not([aria-selected="true"]):hover {
+    color: #c9d3ea;
+  }
+
+  /* ---------------------------------------------------------------- links e botões de texto */
+  :is(.adm-voltar, .sequencia__rodape):hover:not(:disabled) {
+    color: var(--texto-principal);
+  }
+
+  .adm-voltar.confirmando:hover {
+    color: #ffc9c9;
+  }
+
+  :is(.adm-exercicio__mais, .botao-texto, .sequencia__link):hover:not(:disabled) {
+    color: #b7c8ff;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .adm-link--perigo:hover:not(:disabled) {
+    color: #ffc9c9;
+  }
+
+  .loja__etiquetas .loja__limpar:hover {
+    color: var(--texto-principal);
+  }
+
+  /* ---------------------------------------------------------------- blocos clicáveis */
+  .resultado-dias:hover {
+    border-color: rgb(142 171 255 / 40%);
+  }
+
+  .card-treino__abrir:hover h3 {
+    color: var(--azul-claro);
+  }
+
+  .adm-painel-card:is(button):hover {
+    border-color: var(--adm-borda-forte);
+  }
+}
+
+/* Clique: um "afundar" curtinho, também no toque. */
+:is(
+  .adm-botao, .tela-estado__caixa button, .conta-peso__form button, .conta-sessao__painel, .botao-primario,
+  .botao-secundario, .card-produto__adicionar, .treino-hoje__botao--secundario, .conta-meta button,
+  .adm-chips button, .adm-dias button, .adm-treinos__abas button, .adm-icone-botao, .adm-mes__troca button,
+  .cards-treinos__descanso-dias button, .treino-descanso__acoes button
+):active:not(:disabled) {
+  transform: translateY(0) scale(0.97);
+  filter: brightness(0.96);
+  box-shadow: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :is(.adm-botao, .tela-estado__caixa button, .conta-peso__form button, .conta-sessao__painel, .botao-primario) {
+    transform: none !important;
+  }
+}

@@ -1,0 +1,121 @@
+.gaveta {
+  inset: auto 0 0;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  max-height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--texto-principal);
+  overflow: visible;
+}
+
+.gaveta::backdrop {
+  background: rgb(3 5 9 / 72%);
+  backdrop-filter: blur(4px);
+}
+
+.gaveta[open] .gaveta__caixa {
+  animation: gaveta-subir 0.32s cubic-bezier(0.22, 0.75, 0.3, 1) both;
+}
+
+@keyframes gaveta-subir {
+  from { transform: translateY(40px); opacity: 0; }
+}
+
+.gaveta__caixa {
+  display: flex;
+  max-height: min(88vh, 88dvh);
+  flex-direction: column;
+  border: 1px solid var(--borda-suave);
+  border-bottom: 0;
+  border-radius: 24px 24px 0 0;
+  background: var(--superficie);
+  box-shadow: 0 -20px 50px -20px rgb(0 0 0 / 90%);
+}
+
+.gaveta__topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 18px 12px;
+  border-bottom: 1px solid #1c2432;
+}
+
+.gaveta__topo h2 {
+  margin: 0;
+  font-family: var(--fonte-destaque);
+  font-size: 24px;
+  font-style: italic;
+  font-weight: 800;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.gaveta__fechar {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  place-items: center;
+  border: 0;
+  border-radius: 12px;
+  background: #161d29;
+  color: var(--texto-secundario);
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.gaveta__fechar:hover {
+  color: var(--texto-principal);
+}
+
+.gaveta__fechar:focus-visible {
+  outline: 2px solid var(--azul-claro);
+}
+
+.gaveta__conteudo {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 16px 18px;
+}
+
+.gaveta__rodape {
+  padding: 14px 18px calc(16px + env(safe-area-inset-bottom));
+  border-top: 1px solid #1c2432;
+  background: #0b0f15;
+}
+
+@media (min-width: 720px) {
+  .gaveta {
+    inset: 0;
+    width: min(560px, calc(100% - 48px));
+    margin: auto;
+  }
+
+  .gaveta__caixa {
+    max-height: min(84vh, 760px);
+    border-bottom: 1px solid var(--borda-suave);
+    border-radius: 24px;
+    overflow: hidden;
+  }
+
+  .gaveta__rodape {
+    padding-bottom: 16px;
+  }
+
+  @keyframes gaveta-subir {
+    from { transform: translateY(16px) scale(0.98); opacity: 0; }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gaveta[open] .gaveta__caixa {
+    animation: none;
+  }
+}

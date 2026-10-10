@@ -1,0 +1,227 @@
+.esqueleto {
+  position: relative;
+  display: block;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: #151c27;
+}
+
+/* onda de luz suave, da esquerda para a direita */
+.esqueleto::after,
+.esqueleto-onda::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgb(255 255 255 / 4.5%) 50%, transparent 100%);
+  content: "";
+  transform: translateX(-100%);
+  animation: esqueleto-onda 1.5s ease-in-out infinite;
+}
+
+@keyframes esqueleto-onda {
+  to { transform: translateX(100%); }
+}
+
+.esqueleto-card {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  padding: 18px;
+  border: 1px solid #1a2230;
+  border-radius: 20px;
+  background: #0e131b;
+}
+
+.esqueleto-linha {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.esqueleto-linha--entre {
+  justify-content: space-between;
+}
+
+.esqueleto-pilha {
+  display: grid;
+  gap: 8px;
+}
+
+/* entrada suave quando o conteúdo real aparece no lugar do esqueleto */
+.surgir {
+  animation: esqueleto-surgir 0.35s ease both;
+}
+
+@keyframes esqueleto-surgir {
+  from { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .esqueleto::after,
+  .esqueleto-onda::after {
+    animation: none;
+    display: none;
+  }
+
+  .surgir {
+    animation: none;
+  }
+}
+
+/* ---------- tela inicial */
+.esq-inicio__saudacao {
+  padding-left: 14px;
+}
+
+.esq-inicio__painel {
+  display: grid;
+  gap: 18px;
+}
+
+.esq-sobreposto {
+  position: relative;
+  z-index: 2;
+  margin-top: -50px;
+}
+
+.esq-dias {
+  display: flex;
+  justify-content: space-between;
+  margin: 6px 0;
+}
+
+.esq-grade-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.esq-semanas {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 6px;
+}
+
+/* ---------- treino */
+.esq-treino {
+  display: grid;
+  gap: 14px;
+  padding-bottom: 112px;
+}
+
+.esq-treino__dias {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 4px;
+  padding: 8px;
+  border: 1px solid #1a2230;
+  border-radius: 14px;
+  background: #0e131b;
+}
+
+.esq-treino__dia {
+  justify-items: center;
+  padding: 6px 0;
+}
+
+.esq-treino__sessao {
+  padding: 14px 16px;
+}
+
+.esq-treino__lista {
+  display: grid;
+  gap: 16px;
+}
+
+.esq-exercicio {
+  gap: 14px;
+  padding: 12px;
+}
+
+.esq-exercicio__topo {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
+  align-items: start;
+  gap: 12px;
+}
+
+.esq-exercicio__series {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+}
+
+/* ---------- loja */
+.esq-produto {
+  pointer-events: none;
+}
+
+.esq-produto__foto {
+  aspect-ratio: 1;
+  margin: 6px 6px 0;
+  width: auto !important;
+}
+
+.esq-produto__info {
+  padding: 12px;
+}
+
+.esq-linha-produto {
+  padding: 10px;
+  border-radius: 16px;
+}
+
+@media (min-width: 640px) and (max-width: 959px) {
+  .esq-inicio__painel {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .esq-inicio__painel > :first-child {
+    grid-column: 1 / -1;
+  }
+
+  .esq-treino__lista {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 960px) {
+  .esq-inicio__painel {
+    gap: 24px 28px;
+  }
+
+  .esq-sobreposto,
+  .esq-sobreposto-desktop {
+    position: relative;
+    z-index: 2;
+    margin-top: -58px;
+  }
+
+  .esq-treino {
+    padding-bottom: 24px;
+  }
+
+  .esq-treino__lista {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .esq-produto__foto {
+    aspect-ratio: 5 / 4;
+  }
+}
+
+/* imagens: fundo animado só enquanto a imagem ainda não chegou */
+.imagem-carregando {
+  background: linear-gradient(90deg, #151c27 30%, #1b2331 50%, #151c27 70%) 0 0 / 300% 100%;
+  animation: esqueleto-fundo 1.5s ease-in-out infinite;
+}
+
+@keyframes esqueleto-fundo {
+  from { background-position: 100% 0; }
+  to { background-position: 0 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .imagem-carregando {
+    animation: none;
+  }
+}
