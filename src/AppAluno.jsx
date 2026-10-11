@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { Suspense, lazy, useState } from 'react'
 import AvisoSincronizacao from './componentes/AvisoSincronizacao.jsx'
 import CheckInCard from './componentes/CheckInCard.jsx'
 import Header from './componentes/Header.jsx'
@@ -13,7 +13,9 @@ import { EsqueletoInicio } from './componentes/Esqueletos.jsx'
 import PaginaConta from './componentes/conta/PaginaConta.jsx'
 import PaginaLoja from './componentes/loja/PaginaLoja.jsx'
 import { useDadosDoAluno } from './dados/useDadosDoAluno.js'
-import AppAdmin from './admin/AppAdmin.jsx'
+
+// O painel da academia só é baixado por quem é da equipe: o app do aluno fica mais leve.
+const AppAdmin = lazy(() => import('./admin/AppAdmin.jsx'))
 
 function saudacaoDoHorario() {
   const hora = new Date().getHours()
@@ -37,6 +39,8 @@ function lerModo(usuarioId) {
 
 function AppAluno({ usuario, onSair }) {
   const [abaAtual, setAbaAtual] = useState('inicio')
+  // Seção que a loja abre (o atalho "Meus pedidos" do início vai direto para as reservas).
+  const [secaoLoja, setSecaoLoja] = useState('produtos')
   const [direcao, setDirecao] = useState('adiante')
   const [modo, setModoEstado] = useState(() => lerModo(usuario.id))
   const {
@@ -66,12 +70,17 @@ function AppAluno({ usuario, onSair }) {
   }
 
   if (equipe && modo === 'admin') {
-    return <AppAdmin usuario={usuario} perfil={perfil} onSair={onSair} onModoAluno={() => setModo('aluno')} />
+    return (
+      <Suspense fallback={<TelaEstado carregando />}>
+        <AppAdmin usuario={usuario} perfil={perfil} onSair={onSair} onModoAluno={() => setModo('aluno')} />
+      </Suspense>
+    )
   }
 
-  function trocarAba(aba) {
+  function trocarAba(aba, { secao = 'produtos' } = {}) {
     if (!ABAS_DISPONIVEIS.includes(aba)) return
     if (aba === abaAtual) return
+    setSecaoLoja(secao)
 
     setDirecao(
       ORDEM_ABAS.indexOf(aba) > ORDEM_ABAS.indexOf(abaAtual)
@@ -101,7 +110,7 @@ function AppAluno({ usuario, onSair }) {
         )}
         {abaAtual === 'loja' && (
           <div className="pagina-loja">
-            <PaginaLoja usuario={usuario} />
+            <PaginaLoja usuario={usuario} secaoInicial={secaoLoja} />
           </div>
         )}
         {abaAtual === 'conta' && (
@@ -133,7 +142,8 @@ function AppAluno({ usuario, onSair }) {
                 treinos={treinos}
                 onAbrirConta={() => trocarAba('conta')}
               />
-              <AcessosRapidos onAbrirTreino={() => trocarAba('treino')} onAbrirLoja={() => trocarAba('loja')} />
+              <AcessosRapidos onAbrirTreino={() => trocarAba('treino')} onAbrirLoja={() => trocarAba('loja')}
+                onAbrirPedidos={() => trocarAba('loja', { secao: 'pedidos' })} />
               <ResultadosMes
                 checkins={checkins}
                 treinos={treinos}

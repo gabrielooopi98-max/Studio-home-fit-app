@@ -2,11 +2,37 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Studio Home Fit</title>
+    <meta name="description" content="Seu treino do mês, check-in, evolução e a loja da Studio Home Fit, tudo no celular." />
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home Fit</title>
+    <link rel="icon" type="image/png" sizes="192x192" href="/icones/icone-192.png" />
+    <link rel="apple-touch-icon" href="/icones/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+
+    <!-- Cor da barra do navegador e jeito de app quando adicionado à tela inicial -->
+    <meta name="theme-color" content="#07090d" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Home Fit" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+    <!-- Prévia ao compartilhar o link (WhatsApp, Instagram…) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Studio Home Fit" />
+    <meta property="og:title" content="Studio Home Fit" />
+    <meta property="og:description" content="Seu treino do mês, check-in, evolução e a loja da academia, tudo no celular." />
+    <meta property="og:image" content="/icones/icone-512.png" />
+
+    <style>
+      /* Fundo escuro desde o primeiro instante (sem piscar branco antes do app carregar). */
+      html, body { background: #07090d; }
+    </style>
   </head>
   <body>
+    <noscript>Ative o JavaScript para usar o app da Studio Home Fit.</noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

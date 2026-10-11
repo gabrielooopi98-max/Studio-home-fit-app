@@ -24,13 +24,23 @@ const DIAS_DE_TREINO = [
   { indice: 4, nome: 'Sexta' },
 ]
 
-// Esqueleto animado enquanto a foto chega; aviso só se ela falhar.
-function ImagemExercicio({ src, nome }) {
+// O servidor de exercícios aceita até 30 por pedido: as fotos vêm em lotes, todos ao mesmo tempo.
+const TAMANHO_DO_LOTE = 30
+
+// Esqueleto animado enquanto a foto chega; sem foto, um quadro com o grupo muscular.
+function ImagemExercicio({ src, nome, grupo }) {
   const [estado, setEstado] = useState(src ? 'carregando' : 'erro')
   return (
     <>
       {estado === 'carregando' && <Bloco className="card-treino__imagem-esqueleto" altura="100%" raio={0} />}
-      {estado === 'erro' && <span className="card-treino__imagem-fallback">Imagem indisponível</span>}
+      {estado === 'erro' && (
+        <span className="card-treino__imagem-fallback">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6.5 6.5v11M17.5 6.5v11M3.5 9v6M20.5 9v6M6.5 12h11" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+          </svg>
+          <small>{grupo || 'Exercício'}</small>
+        </span>
+      )}
       <img
         src={src}
         alt={`Demonstração de ${nome}`}
@@ -112,22 +122,26 @@ function CardsTreinos({ treinos: dados, fichas, onSalvarTreino, onTreinoConcluid
 
   useEffect(() => {
     const controller = new AbortController()
-    const parametros = new URLSearchParams({
-      ids: [...new Set([...EXERCICIOS_DE_EXEMPLO, ...CATALOGO_EXERCICIOS].map(({ id }) => id))].join(','),
-    })
+    const ids = [...new Set([...EXERCICIOS_DE_EXEMPLO, ...CATALOGO_EXERCICIOS].map(({ id }) => id))]
+    const lotes = Array.from({ length: Math.ceil(ids.length / TAMANHO_DO_LOTE) }, (_, i) =>
+      ids.slice(i * TAMANHO_DO_LOTE, (i + 1) * TAMANHO_DO_LOTE))
+
+    async function buscarLote(lote) {
+      const resposta = await fetch(`/api/exercises?${new URLSearchParams({ ids: lote.join(',') })}`, {
+        signal: controller.signal,
+      })
+      const payload = await resposta.json()
+      if (!resposta.ok) throw new Error(mensagemErroDaApi(payload))
+      return payload.data
+    }
 
     async function carregarExercicios() {
       setCarregando(true)
       setErro('')
 
       try {
-        const resposta = await fetch(`/api/exercises?${parametros}`, {
-          signal: controller.signal,
-        })
-        const payload = await resposta.json()
-        if (!resposta.ok) throw new Error(mensagemErroDaApi(payload))
-
-        setImagens(new Map(payload.data.map((exercicio) => [exercicio.id, exercicio.imageUrl])))
+        const resultados = await Promise.all(lotes.map(buscarLote))
+        setImagens(new Map(resultados.flat().map((exercicio) => [exercicio.id, exercicio.imageUrl])))
       } catch (error) {
         // Sem fotos o treino continua funcionando; só avisa.
         if (error.name !== 'AbortError') setErro('Não foi possível carregar as fotos dos exercícios agora.')
@@ -350,7 +364,7 @@ function CardsTreinos({ treinos: dados, fichas, onSalvarTreino, onTreinoConcluid
                 <div className="card-treino__imagem">
                   <span className="card-treino__ordem">{String(index + 1).padStart(2, '0')}</span>
                   <span className="card-treino__seta-imagem" aria-hidden="true" />
-                  <ImagemExercicio src={exercicio.imagem} nome={exercicio.nome} />
+                  <ImagemExercicio src={exercicio.imagem} nome={exercicio.nome} grupo={exercicio.grupo} />
                 </div>
 
                 <div className="card-treino__conteudo">
