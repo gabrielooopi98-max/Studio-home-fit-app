@@ -173,8 +173,20 @@ body {
     gap: 24px 28px;
   }
 
+  /* O check-in acompanha a altura dos acessos rápidos ao lado: sem buraco embaixo dele. */
   .painel-inicio > .checkin-page {
     grid-area: checkin;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .painel-inicio > .checkin-page > .checkin-card {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 18px;
   }
 
   .painel-inicio > .acessos-rapidos {

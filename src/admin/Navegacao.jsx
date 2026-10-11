@@ -23,7 +23,7 @@ export function Icone({ nome, className = 'adm-icone' }) {
 const PAPEIS = { dono: 'Dono', personal: 'Personal' }
 
 // Menu lateral fixo no computador; no celular vira uma barra no topo com menu que abre por cima.
-function Navegacao({ itens, atual, perfil, email, onIr, onModoAluno, onSair }) {
+function Navegacao({ itens, atual, perfil, email, onIr, onModoAluno, onSair, acaoMovel = null }) {
   const [aberto, setAberto] = useState(false)
 
   useEffect(() => {
@@ -46,6 +46,7 @@ function Navegacao({ itens, atual, perfil, email, onIr, onModoAluno, onSair }) {
         </button>
         <img src="/logo-academia/logo-homefit-branca.svg" alt="Home Fit" />
         <span className="adm-barra-movel__pagina">{itens.find(({ id }) => id === atual)?.nome}</span>
+        {acaoMovel}
       </header>
 
       {aberto && <button type="button" className="adm-menu-fundo" aria-label="Fechar menu" onClick={() => setAberto(false)} />}

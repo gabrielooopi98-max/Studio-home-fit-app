@@ -144,7 +144,7 @@
 /* ---------- detalhe sutil de cada card ---------- */
 .card-meu-treino::after         { background: rgb(52 88 201 / 10%); }
 .card-loja::after               { background: rgb(52 88 201 / 7%); }
-.card-pagamentos::after         { background: rgb(52 88 201 / 6%); }
+.card-pedidos::after         { background: rgb(52 88 201 / 6%); }
 .card-whatsapp::after           { background: rgb(52 88 201 / 8%); }
 
 .card-whatsapp {

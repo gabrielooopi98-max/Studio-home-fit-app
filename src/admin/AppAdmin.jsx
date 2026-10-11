@@ -162,6 +162,15 @@ function AppAdmin({ usuario, perfil, onSair, onModoAluno }) {
     conteudo = <VisaoGeral perfil={perfil} dono={dono} dados={dados} alunos={alunos} ir={ir} onEditarFicha={abrirEditor} />
   }
 
+  const botaoAtualizar = (
+    <button type="button" className="adm-atualizar" onClick={recarregar} disabled={estado.carregando} aria-label="Atualizar dados">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className={estado.carregando ? 'girando' : ''}>
+        <path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+      <span>{estado.carregando ? 'Atualizando…' : 'Atualizar'}</span>
+    </button>
+  )
+
   return (
     <div className="adm">
       <Navegacao
@@ -176,17 +185,11 @@ function AppAdmin({ usuario, perfil, onSair, onModoAluno }) {
           onModoAluno()
         }}
         onSair={onSair}
+        acaoMovel={botaoAtualizar}
       />
       <main className="adm-principal">
         {estado.erro && dados && <p className="adm-erro adm-erro--bloco" role="alert">{estado.erro}</p>}
-        <div className="adm-principal__barra">
-          <button type="button" className="adm-atualizar" onClick={recarregar} disabled={estado.carregando} aria-label="Atualizar dados">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className={estado.carregando ? 'girando' : ''}>
-              <path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-            <span>{estado.carregando ? 'Atualizando…' : 'Atualizar'}</span>
-          </button>
-        </div>
+        <div className="adm-principal__barra">{botaoAtualizar}</div>
         {conteudo}
       </main>
     </div>

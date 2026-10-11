@@ -30,7 +30,7 @@ function CheckinCard({ checkins, meta, onCheckin }) {
             <p>
               {faltam === 0
                 ? 'Meta da semana batida! 🔥'
-                : `Faltam ${faltam} ${faltam === 1 ? 'treino' : 'treinos'} para sua meta da semana.`}
+                : faltam === 1 ? 'Falta 1 treino para sua meta da semana.' : `Faltam ${faltam} treinos para sua meta da semana.`}
             </p>
           </div>
           <div

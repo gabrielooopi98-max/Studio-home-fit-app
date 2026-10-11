@@ -33,7 +33,7 @@ function LojaAdmin({ onPedidosMudaram }) {
         migalhas={[{ nome: 'Loja' }]}
         titulo="Loja"
         descricao={estado.carregando ? 'Pedidos, produtos e estoque.' : [
-          `${estado.produtos.filter(({ ativo }) => ativo).length} produtos à venda`,
+          (() => { const n = estado.produtos.filter(({ ativo }) => ativo).length; return `${n} ${n === 1 ? 'produto à venda' : 'produtos à venda'}` })(),
           acabando ? `${acabando} acabando` : '',
           semEstoque ? `${semEstoque} sem estoque` : '',
         ].filter(Boolean).join(' · ')}

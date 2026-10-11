@@ -1848,3 +1848,10 @@
 .form-produto__previa--erro {
   color: #ffb2b2;
 }
+
+.loja__aviso .botao-primario {
+  margin-top: 6px;
+  border: 0;
+  background: var(--azul);
+  color: #fff;
+}

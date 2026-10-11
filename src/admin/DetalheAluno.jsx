@@ -60,7 +60,16 @@ function FichaCompleta({ ficha }) {
           <ol>
             {treino.exercicios.map((item) => (
               <li key={item.id}>
-                <span className="adm-ficha-treino__nome">{item.nome}{item.observacao && <small>{item.observacao}</small>}</span>
+                <span className="adm-ficha-treino__nome">
+                  {item.nome}
+                  {item.observacao && <small>{item.observacao}</small>}
+                  {(item.imagem || item.video) && (
+                    <span className="adm-ficha-treino__midias">
+                      {item.imagem && <a href={item.imagem} target="_blank" rel="noopener noreferrer">📷 Foto</a>}
+                      {item.video && <a href={item.video} target="_blank" rel="noopener noreferrer">▶ Vídeo</a>}
+                    </span>
+                  )}
+                </span>
                 <span className="adm-ficha-treino__prescricao">
                   {item.series}×{item.repeticoes}
                   <small>{textoDescanso(item.descanso)}{item.carga ? ` · ${item.carga}` : ''}</small>

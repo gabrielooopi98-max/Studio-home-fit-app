@@ -440,6 +440,20 @@
   .conta-conquistas__grade {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
+
+  /* Duas colunas sem buracos: perfil, peso, recordes e conta empilhados à esquerda;
+     conquistas ocupando a coluna da direita inteira. */
+  .conta-perfil,
+  .conta-peso,
+  .conta-recordes,
+  .conta-sessao {
+    grid-column: 1;
+  }
+
+  .conta-conquistas {
+    grid-column: 2;
+    grid-row: 1 / span 4;
+  }
 }
 
 @media (min-width: 640px) and (max-width: 959px) {

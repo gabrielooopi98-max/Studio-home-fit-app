@@ -1,5 +1,5 @@
 import { formatarPreco } from '../utils/dinheiro.js'
-import { dataCurta, renovarFicha } from '../utils/ficha.js'
+import { dataCurta, fichaAnteriorAoMes, fichaDoMes, mesSugerido, nomeDoMes, renovarFicha } from '../utils/ficha.js'
 import {
   alunoSumido, checkinsPorDiaUtil, comparativoSemanal, faturamento, linkWhatsApp, mensagemPara, novosAlunos, primeiroNome,
   tendencia,
@@ -57,7 +57,9 @@ function VisaoGeral({ perfil, dono, dados, alunos, ir, onEditarFicha }) {
   const media = serie.length ? serie.reduce((soma, { total }) => soma + total, 0) / serie.length : 0
   const idsHoje = new Set(dados.checkins.filter(({ dia }) => dia === hoje).map(({ usuario_id: id }) => id))
   const vieramHoje = alunos.filter(({ id }) => idsHoje.has(id))
-  const semFicha = alunos.filter((aluno) => ['sem', 'vencida'].includes(aluno.situacaoFicha.estado))
+  // Mesma regra da página Treinos: quem ainda não recebeu o treino do mês.
+  const mes = mesSugerido(hoje)
+  const semTreinoDoMes = alunos.filter((aluno) => !fichaDoMes(aluno.fichas, mes))
   const vencendo = alunos.filter((aluno) => aluno.situacaoFicha.estado === 'vencendo')
     .sort((a, b) => a.situacaoFicha.restantes - b.situacaoFicha.restantes)
   const sumidos = alunos.filter(alunoSumido).sort((a, b) => (b.diasSemVir ?? 9999) - (a.diasSemVir ?? 9999))
@@ -134,22 +136,20 @@ function VisaoGeral({ perfil, dono, dados, alunos, ir, onEditarFicha }) {
 
       <div className="adm-visao__acoes">
         <ListaDeAcao
-          titulo="Sem treino montado"
+          titulo={`Sem treino de ${nomeDoMes(mes)}`}
           descricao="Envie o treino do mês em poucos minutos."
-          vazio="Todos os alunos estão com ficha. 👏"
-          itens={semFicha}
-          onVerTodos={() => ir({ pagina: 'alunos' })}
-          renderizar={(aluno) => (
-            <li key={aluno.id}>
-              {pessoa(aluno, aluno.situacaoFicha.texto)}
-              {aluno.situacaoFicha.estado === 'vencida' ? (
-                <button type="button" className="adm-botao adm-botao--pequeno adm-botao--secundario"
-                  onClick={() => onEditarFicha(aluno, renovarFicha(aluno.fichaAtual, hoje))}>Renovar</button>
-              ) : (
+          vazio={`Todos já receberam o treino de ${nomeDoMes(mes)}. 👏`}
+          itens={semTreinoDoMes}
+          onVerTodos={() => ir({ pagina: 'treinos' })}
+          renderizar={(aluno) => {
+            const anterior = fichaAnteriorAoMes(aluno.fichas, mes)
+            return (
+              <li key={aluno.id}>
+                {pessoa(aluno, anterior ? `Último treino até ${dataCurta(anterior.fim)}` : 'Ainda não recebeu treino')}
                 <button type="button" className="adm-botao adm-botao--pequeno" onClick={() => onEditarFicha(aluno, null)}>Enviar treino</button>
-              )}
-            </li>
-          )}
+              </li>
+            )
+          }}
         />
         <ListaDeAcao
           titulo="Fichas vencendo"

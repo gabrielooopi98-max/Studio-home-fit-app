@@ -13,8 +13,8 @@ import { EsqueletoProdutos } from '../Esqueletos.jsx'
 import { useCarrinho } from './useCarrinho.js'
 import './Loja.css'
 
-function PaginaLoja({ usuario }) {
-  const [aba, setAba] = useState('produtos')
+function PaginaLoja({ usuario, secaoInicial = 'produtos' }) {
+  const [aba, setAba] = useState(secaoInicial)
   const [estado, setEstado] = useState({ carregando: true, erro: '', produtos: [] })
   const [tentativa, setTentativa] = useState(0)
   const [filtros, setFiltros] = useState(FILTROS_PADRAO)
@@ -218,7 +218,7 @@ function PaginaLoja({ usuario }) {
           </section>
         )}
 
-        {aba === 'pedidos' && <MeusPedidos usuarioId={usuario.id} />}
+        {aba === 'pedidos' && <MeusPedidos usuarioId={usuario.id} onVerProdutos={() => setAba('produtos')} />}
       </div>
 
       {aba === 'produtos' && (

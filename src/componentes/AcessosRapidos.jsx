@@ -15,7 +15,7 @@ const seta = (
     </svg>
 )
 
-function AcessosRapidos({ onAbrirTreino, onAbrirLoja }) {
+function AcessosRapidos({ onAbrirTreino, onAbrirLoja, onAbrirPedidos }) {
     return (
         <section className="acessos-rapidos">
             <h2>Acessos Rápidos</h2>
@@ -71,17 +71,18 @@ function AcessosRapidos({ onAbrirTreino, onAbrirLoja }) {
                     </span>
                 </button>
 
-                {/* Pagamentos */}
-                <button className="card-atalho card-pagamentos" type="button" disabled>
+                {/* Meus pedidos: reservas da loja */}
+                <button className="card-atalho card-pedidos" type="button" onClick={onAbrirPedidos}>
+                    {seta}
                     <span className="icone-atalho">
                         <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
-                            <rect x="2" y="5" width="20" height="14" rx="3" stroke="currentColor" strokeWidth="2" />
-                            <path d="M2 10h20M6 15h4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                            <path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+                            <path d="M9 8h6M9 12h6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
                         </svg>
                     </span>
                     <span className="texto-atalho">
-                        <strong>Pagamentos</strong>
-                        <small className="selo-em-breve">Em breve</small>
+                        <strong>Meus pedidos</strong>
+                        <small>Reservas para retirar</small>
                     </span>
                 </button>
 

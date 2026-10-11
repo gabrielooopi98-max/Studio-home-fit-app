@@ -60,12 +60,12 @@ function PedidosDaLoja({ onProdutosMudaram }) {
   return (
     <section aria-label="Pedidos da loja">
       <div className="loja__secao-topo">
-        <div className="filtro-duplo" role="group" aria-label="Filtrar pedidos">
+        <div className="adm-segmento" role="group" aria-label="Filtrar pedidos">
           <button type="button" aria-pressed={abertos} onClick={() => setAbertos(true)}>Em aberto</button>
           <button type="button" aria-pressed={!abertos} onClick={() => setAbertos(false)}>Finalizados</button>
         </div>
-        <button type="button" className="botao-texto" onClick={() => setTentativa((valor) => valor + 1)} disabled={estado.carregando}>
-          Atualizar
+        <button type="button" className="adm-link" onClick={() => setTentativa((valor) => valor + 1)} disabled={estado.carregando}>
+          {estado.carregando ? 'Atualizando…' : 'Atualizar pedidos'}
         </button>
       </div>
 
@@ -151,7 +151,7 @@ function ProdutosDaLoja({ produtos, carregando, onProdutosMudaram }) {
             ? 'Carregando produtos…'
             : `${produtos.length} ${produtos.length === 1 ? 'produto cadastrado' : 'produtos cadastrados'}`}
         </p>
-        <button type="button" className="botao-primario" onClick={() => setEditando('novo')}>+ Novo produto</button>
+        <button type="button" className="adm-botao" onClick={() => setEditando('novo')}>+ Novo produto</button>
       </div>
 
       {carregando && produtos.length === 0 && <EsqueletoListaProdutos />}
@@ -193,10 +193,12 @@ function GerenciarLoja({ produtos, carregandoProdutos, onProdutosMudaram }) {
   const [secao, setSecao] = useState('pedidos')
   return (
     <div className="gerenciar">
-      <div className="filtro-duplo filtro-duplo--largo" role="group" aria-label="Gerenciar">
-        <button type="button" aria-pressed={secao === 'pedidos'} onClick={() => setSecao('pedidos')}>Pedidos</button>
-        <button type="button" aria-pressed={secao === 'produtos'} onClick={() => setSecao('produtos')}>Produtos e estoque</button>
-      </div>
+      <nav className="adm-abas-pagina" aria-label="Seções da loja">
+        <button type="button" aria-current={secao === 'pedidos' ? 'page' : undefined} onClick={() => setSecao('pedidos')}>Pedidos</button>
+        <button type="button" aria-current={secao === 'produtos' ? 'page' : undefined} onClick={() => setSecao('produtos')}>
+          Produtos e estoque <small>{produtos.length}</small>
+        </button>
+      </nav>
       {secao === 'pedidos'
         ? <PedidosDaLoja onProdutosMudaram={onProdutosMudaram} />
         : <ProdutosDaLoja produtos={produtos} carregando={carregandoProdutos} onProdutosMudaram={onProdutosMudaram} />}

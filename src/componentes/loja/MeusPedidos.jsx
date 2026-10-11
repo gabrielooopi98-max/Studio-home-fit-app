@@ -4,7 +4,7 @@ import { supabase } from '../../dados/supabase.js'
 import CartaoPedido from './CartaoPedido.jsx'
 import { EsqueletoPedidos } from '../Esqueletos.jsx'
 
-function MeusPedidos({ usuarioId }) {
+function MeusPedidos({ usuarioId, onVerProdutos }) {
   const [estado, setEstado] = useState({ carregando: true, erro: '', pedidos: [] })
   const [tentativa, setTentativa] = useState(0)
   const [confirmando, setConfirmando] = useState(null)
@@ -85,7 +85,8 @@ function MeusPedidos({ usuarioId }) {
       {!estado.carregando && !estado.erro && pedidos.length === 0 && (
         <div className="loja__aviso">
           <strong>Nenhum pedido ainda</strong>
-          <p>Escolha seus suplementos na aba Produtos e reserve para retirar na academia.</p>
+          <p>Escolha seus suplementos e reserve pelo app. Você paga e retira na recepção.</p>
+          {onVerProdutos && <button type="button" className="botao-primario" onClick={onVerProdutos}>Ver produtos</button>}
         </div>
       )}
 
