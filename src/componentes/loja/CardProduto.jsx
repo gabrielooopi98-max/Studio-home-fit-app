@@ -72,9 +72,11 @@ function CardProduto({ produto, quantidade, onAbrir, onAdicionar, onQuantidade }
           <SeletorQuantidade produto={produto} quantidade={quantidade} onQuantidade={onQuantidade} />
         ) : (
           <button type="button" className="card-produto__adicionar" onClick={onAdicionar}>
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.5L21 8H6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M13 10v4M11 12h4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <circle cx="9" cy="21" r="1" fill="currentColor" stroke="none" />
+              <circle cx="19" cy="21" r="1" fill="currentColor" stroke="none" />
+              <path d="M1 2h3l3.2 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 7H5" />
+              <path d="M8 11h12M9 14h10" />
             </svg>
             Adicionar
           </button>

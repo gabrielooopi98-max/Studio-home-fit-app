@@ -434,7 +434,7 @@
   overflow: hidden;
   border: 1px solid #1a2230;
   border-radius: 20px;
-  background: #0e131b;
+  background: #eef0f1;
   transition:
     transform 0.35s cubic-bezier(0.22, 0.75, 0.3, 1),
     border-color 0.3s ease,
@@ -475,7 +475,6 @@
   display: block;
   overflow: hidden;
   aspect-ratio: 1;
-  margin: 6px 6px 0;
   border-radius: 15px;
   background: #131924;
 }
@@ -550,7 +549,7 @@
   left: 10px;
   display: none;
   padding: 8px;
-  border-radius: 10px;
+  border-radius: 5px;
   background: rgb(9 12 17 / 78%);
   color: #fff;
   font-size: 12px;
@@ -1854,4 +1853,113 @@
   border: 0;
   background: var(--azul);
   color: #fff;
+}
+
+/* ==========================================================================
+   Card de produto claro (branco / cinza): a foto fica num fundo branco,
+   como em loja de suplementos, e o texto escuro para ler bem.
+   ========================================================================== */
+.card-produto {
+  border-color: #d9dee5;
+  background: #f1f3f5;
+  color: #10141c;
+  box-shadow: 0 10px 24px -18px rgb(0 0 0 / 70%);
+}
+
+.card-produto--no-carrinho {
+  border-color: var(--azul-brilho);
+  box-shadow: 0 0 0 1px var(--azul-brilho), 0 10px 24px -18px rgb(0 0 0 / 70%);
+}
+
+.card-produto .card-produto__vitrine {
+  border-bottom: 1px solid #e3e7ec;
+  border-radius: 0;
+  background: #fff;
+}
+
+.card-produto .foto-produto--vazia {
+  color: #b9c1cc;
+}
+
+.card-produto .selo {
+  background: rgb(16 20 28 / 82%);
+  color: #fff;
+}
+
+.card-produto .selo--promo {
+  background: var(--azul);
+  color: #fff;
+}
+
+.card-produto .card-produto__info small {
+  color: #6b7585;
+}
+
+.card-produto .card-produto__info strong {
+  color: #10141c;
+}
+
+.card-produto .preco-produto strong {
+  color: #0b0f15;
+}
+
+.card-produto .preco-produto s {
+  color: #8a94a3;
+}
+
+.card-produto .preco-produto__economia {
+  color: #17804d;
+}
+
+.card-produto .card-produto__estoque {
+  color: #6b7585;
+}
+
+.card-produto .card-produto__estoque.poucas {
+  color: #b26a00;
+}
+
+.card-produto .card-produto__adicionar {
+  border-color: transparent;
+  background: #10141c;
+  color: #fff;
+}
+
+.card-produto .seletor-quantidade {
+  border-color: #cfd5de;
+  background: #fff;
+}
+
+.card-produto .seletor-quantidade button,
+.card-produto .seletor-quantidade output {
+  color: #10141c;
+}
+
+.card-produto .seletor-quantidade button:disabled {
+  color: #b9c1cc;
+}
+
+.card-produto .seletor-quantidade button:hover:not(:disabled) {
+  background: #eef1f5;
+}
+
+.card-produto .selo-esgotado {
+  border-color: #c9d0da;
+  color: #6b7585;
+}
+
+.card-produto--esgotado .preco-produto strong {
+  color: #8a94a3;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card-produto:hover {
+    border-color: #c3cad5;
+    box-shadow: 0 18px 34px -20px rgb(0 0 0 / 85%);
+  }
+
+  .card-produto:not(.card-produto--esgotado):hover .card-produto__adicionar {
+    background: var(--azul);
+    color: #fff;
+  }
 }
