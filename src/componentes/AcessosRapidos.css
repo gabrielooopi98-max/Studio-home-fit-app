@@ -291,3 +291,118 @@
 .card-whatsapp .icone-atalho {
     color: #4fd38a;
 }
+
+/* ==========================================================================
+   Identidade de cada card: a cor vem de --acento (e --acento-claro para
+   textos e ícones). Base escura igual para todos; a cor aparece num brilho
+   no canto, numa linha no topo, no ícone e numa marca d'água bem apagada.
+   ========================================================================== */
+.card-atalho {
+    --acento: #4a7dff;
+    --acento-claro: #a9bfff;
+    --brilho: color-mix(in srgb, var(--acento) 22%, transparent);
+    --borda-hover: color-mix(in srgb, var(--acento) 60%, transparent);
+    --sombra-hover: color-mix(in srgb, var(--acento) 45%, transparent);
+    border-color: color-mix(in srgb, var(--acento) 24%, #1c2430);
+    background:
+        radial-gradient(120% 90% at 100% 0%, color-mix(in srgb, var(--acento) 15%, transparent), transparent 60%),
+        linear-gradient(180deg, #10151d, #0b0f15);
+}
+
+.card-meu-treino { --acento: #4a7dff; --acento-claro: #a9bfff; }
+.card-loja       { --acento: #9b7bff; --acento-claro: #cbbcff; }
+.card-pedidos    { --acento: #e8b04b; --acento-claro: #f2d08f; }
+.card-whatsapp   { --acento: #25d366; --acento-claro: #86e8ad; }
+
+/* linha fina na cor do card, no topo */
+.card-atalho::after,
+.card-meu-treino::after,
+.card-loja::after,
+.card-pedidos::after,
+.card-whatsapp::after {
+    top: 0;
+    right: 18px;
+    left: 18px;
+    width: auto;
+    height: 2px;
+    border-radius: 0 0 2px 2px;
+    background: linear-gradient(90deg, transparent, var(--acento), transparent);
+    opacity: 0.55;
+}
+
+/* ícone grande e apagado no canto de baixo */
+.marca-atalho {
+    position: absolute;
+    right: -16px;
+    bottom: -20px;
+    width: 100px;
+    height: 100px;
+    color: var(--acento);
+    opacity: 0.08;
+    pointer-events: none;
+    transform: rotate(-12deg);
+    transition: transform 0.45s cubic-bezier(0.22, 0.75, 0.3, 1), opacity 0.3s ease;
+}
+
+.marca-atalho svg {
+    width: 100%;
+    height: 100%;
+}
+
+.card-atalho .icone-atalho {
+    border-color: color-mix(in srgb, var(--acento) 32%, transparent);
+    background: color-mix(in srgb, var(--acento) 15%, #121822);
+    color: var(--acento-claro);
+}
+
+.card-atalho .icone-atalho svg {
+    width: 22px;
+    height: 22px;
+}
+
+/* Meu treino é o atalho principal: ícone em azul cheio. */
+.card-meu-treino .icone-atalho {
+    border-color: transparent;
+    background: linear-gradient(145deg, var(--azul-brilho), var(--azul));
+    color: #fff;
+    box-shadow: 0 10px 22px -12px rgb(36 80 232 / 80%);
+}
+
+.card-meu-treino .icone-atalho svg {
+    width: 26px;
+    height: 26px;
+}
+
+.card-atalho .texto-atalho small {
+    color: color-mix(in srgb, var(--acento-claro) 55%, #7f8b9d);
+}
+
+.card-atalho .seta-atalho {
+    color: var(--acento-claro);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .card-atalho:not(:disabled):hover .marca-atalho {
+        opacity: 0.15;
+        transform: rotate(-4deg) scale(1.06);
+    }
+
+    .card-atalho:not(:disabled):hover .icone-atalho {
+        color: #fff;
+        background: color-mix(in srgb, var(--acento) 30%, #121822);
+    }
+
+    .card-meu-treino:not(:disabled):hover .icone-atalho {
+        background: linear-gradient(145deg, var(--azul-brilho), var(--azul));
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .marca-atalho {
+        transition: none;
+    }
+
+    .card-atalho:not(:disabled):hover .marca-atalho {
+        transform: rotate(-12deg);
+    }
+}
