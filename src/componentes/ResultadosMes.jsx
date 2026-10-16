@@ -178,7 +178,7 @@ function ResultadosMes({ checkins, treinos, perfil }) {
       </div>
 
       <div className="resultados-mes__indicadores-topo">
-        <h3>Outros indicadores</h3>
+        <h3>Indicadores do mês</h3>
         <span>{mesAtual.charAt(0).toUpperCase() + mesAtual.slice(1)}</span>
       </div>
       <div className="resultados-mes__grade">
