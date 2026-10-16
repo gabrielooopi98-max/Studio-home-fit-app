@@ -98,7 +98,8 @@ function Carrinho({ itens, produtos, onItens, onPedidoFeito, onVerPedidos }) {
         document.body,
       )}
 
-      <Gaveta aberta={aberto} titulo={pedidoFeito ? 'Pedido reservado' : 'Seu carrinho'} onFechar={fechar} rodape={rodape}>
+      <Gaveta aberta={aberto} titulo={pedidoFeito ? 'Pedido reservado' : 'Seu carrinho'} onFechar={fechar} rodape={rodape}
+        className="gaveta--clara">
         {pedidoFeito ? (
           <div className="pedido-feito" role="status">
             <span className="pedido-feito__icone" aria-hidden="true">✓</span>

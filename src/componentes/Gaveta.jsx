@@ -3,7 +3,8 @@ import './Gaveta.css'
 
 // Painel que sobe de baixo no celular e vira janela central no desktop.
 // Usa <dialog> nativo: foco preso dentro, Esc fecha e o resto da página fica inerte.
-function Gaveta({ aberta, titulo, onFechar, children, rodape }) {
+// className permite variações, como o tema claro do carrinho ("gaveta--clara").
+function Gaveta({ aberta, titulo, onFechar, children, rodape, className = '' }) {
   const ref = useRef(null)
 
   useEffect(() => {
@@ -23,7 +24,7 @@ function Gaveta({ aberta, titulo, onFechar, children, rodape }) {
   return (
     <dialog
       ref={ref}
-      className="gaveta"
+      className={`gaveta${className ? ` ${className}` : ''}`}
       aria-label={titulo}
       onCancel={(event) => {
         event.preventDefault()

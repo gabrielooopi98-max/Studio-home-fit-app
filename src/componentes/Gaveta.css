@@ -123,3 +123,37 @@
     animation: none;
   }
 }
+
+/* ---------------------------------------------------------------- tema claro (carrinho) */
+.gaveta--clara {
+  color: #10141c;
+}
+
+.gaveta--clara .gaveta__caixa {
+  border-color: #d9dee5;
+  background: #f1f3f5;
+  box-shadow: 0 -20px 50px -20px rgb(0 0 0 / 70%);
+}
+
+.gaveta--clara .gaveta__topo {
+  border-bottom-color: #dfe3e9;
+}
+
+.gaveta--clara .gaveta__topo h2 {
+  color: #10141c;
+}
+
+.gaveta--clara .gaveta__fechar {
+  background: #e3e7ed;
+  color: #3b4558;
+}
+
+.gaveta--clara .gaveta__fechar:hover {
+  background: #d7dce4;
+  color: #10141c;
+}
+
+.gaveta--clara .gaveta__rodape {
+  border-top-color: #dfe3e9;
+  background: #fff;
+}

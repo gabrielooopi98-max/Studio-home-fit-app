@@ -1963,3 +1963,151 @@
     color: #fff;
   }
 }
+
+/* ==========================================================================
+   Carrinho claro (branco / cinza), combinando com os cards de produto
+   ========================================================================== */
+.gaveta--clara .carrinho__cabecalho,
+.gaveta--clara .carrinho__vazio,
+.gaveta--clara .carrinho__total {
+  color: #6b7585;
+}
+
+.gaveta--clara .carrinho__lista li {
+  border-color: #dfe3e9;
+  background: #fff;
+  box-shadow: 0 6px 16px -14px rgb(0 0 0 / 60%);
+}
+
+.gaveta--clara .carrinho__lista li.com-problema {
+  border-color: #f2b8b5;
+  background: #fff7f6;
+}
+
+.gaveta--clara .carrinho__foto {
+  border: 1px solid #e3e7ec;
+  background: #fff;
+}
+
+.gaveta--clara .foto-produto--vazia {
+  color: #b9c1cc;
+}
+
+.gaveta--clara .carrinho__item strong,
+.gaveta--clara .carrinho__linha b,
+.gaveta--clara .carrinho__total strong {
+  color: #10141c;
+}
+
+.gaveta--clara .carrinho__item small {
+  color: #6b7585;
+}
+
+.gaveta--clara .carrinho__item .carrinho__problema,
+.gaveta--clara .carrinho__indisponivel {
+  color: #c0362c;
+}
+
+.gaveta--clara .seletor-quantidade {
+  border-color: #cfd5de;
+  background: #f6f7f9;
+}
+
+.gaveta--clara .seletor-quantidade button,
+.gaveta--clara .seletor-quantidade output {
+  color: #10141c;
+}
+
+.gaveta--clara .seletor-quantidade button:disabled {
+  color: #b9c1cc;
+}
+
+.gaveta--clara .seletor-quantidade button:hover:not(:disabled) {
+  background: #e9edf2;
+}
+
+.gaveta--clara .carrinho__esvaziar,
+.gaveta--clara .carrinho__tirar {
+  color: #6b7585;
+}
+
+.gaveta--clara .carrinho__esvaziar:hover,
+.gaveta--clara .carrinho__esvaziar.confirmando,
+.gaveta--clara .carrinho__tirar:hover {
+  color: #c0362c;
+}
+
+.gaveta--clara .carrinho__tirar:hover {
+  background: #fdecea;
+}
+
+.gaveta--clara .carrinho__observacao span {
+  color: #3b4558;
+}
+
+.gaveta--clara .carrinho__observacao textarea {
+  border-color: #cfd5de;
+  background: #fff;
+  color: #10141c;
+}
+
+.gaveta--clara .carrinho__observacao textarea::placeholder {
+  color: #9aa3b1;
+}
+
+.gaveta--clara .carrinho__info {
+  border: 1px solid #d6e0fb;
+  background: #eaf0ff;
+  color: #2c3a55;
+}
+
+.gaveta--clara .carrinho__info svg {
+  color: var(--azul);
+}
+
+.gaveta--clara .loja__erro {
+  border-color: #f2b8b5;
+  background: #fdecea;
+  color: #a62a21;
+}
+
+.gaveta--clara .botao-secundario {
+  border-color: #cfd5de;
+  background: #fff;
+  color: #10141c;
+}
+
+.gaveta--clara .pedido-feito h3 {
+  color: #10141c;
+}
+
+.gaveta--clara .pedido-feito p {
+  color: #3b4558;
+}
+
+.gaveta--clara .pedido-feito__icone {
+  background: #dcf5e7;
+  color: #17804d;
+}
+
+.gaveta--clara .pedido-feito__passos {
+  border: 1px solid #dfe3e9;
+  background: #fff;
+  color: #3b4558;
+}
+
+@media (hover: hover) {
+  .gaveta--clara .botao-secundario:hover:not(:disabled) {
+    border-color: #b9c1cc;
+    background: #f1f3f5;
+    color: #10141c;
+  }
+}
+
+/* Botões do "Pedido reservado" sempre em uma linha. */
+.carrinho__botoes > * {
+  min-height: 48px;
+  padding-inline: 10px;
+  font-size: 13.5px;
+  white-space: nowrap;
+}
