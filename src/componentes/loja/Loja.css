@@ -2216,3 +2216,376 @@
     background: #fdecea;
   }
 }
+
+/* ==========================================================================
+   Cabeçalho da loja (estilo loja de suplementos): faixa de aviso preta,
+   barra branca com logo, busca, pedidos e carrinho, e menu de categorias.
+   ========================================================================== */
+.cab-loja {
+  position: relative;
+  z-index: 3;
+  margin: 0 -16px;
+  background: #fff;
+  color: #10141c;
+  box-shadow: 0 14px 30px -24px rgb(0 0 0 / 90%);
+}
+
+/* faixa preta com mensagens que trocam sozinhas */
+.cab-loja__aviso {
+  display: grid;
+  height: 34px;
+  place-items: center;
+  overflow: hidden;
+  background: #0b0f15;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.cab-loja__aviso-texto {
+  padding: 0 12px;
+  animation: cab-loja-aviso 0.5s ease both;
+}
+
+@keyframes cab-loja-aviso {
+  from { opacity: 0; transform: translateY(8px); }
+}
+
+/* barra branca: no celular logo + ações em cima e a busca embaixo */
+.cab-loja__barra {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas:
+    "marca acoes"
+    "busca busca";
+  align-items: center;
+  gap: 12px 10px;
+  padding: 14px 16px 12px;
+}
+
+.cab-loja__marca {
+  display: flex;
+  grid-area: marca;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.cab-loja__marca img {
+  display: block;
+  width: auto;
+  height: 30px;
+}
+
+.cab-loja__marca span {
+  padding: 3px 7px;
+  border-radius: 6px;
+  background: #10141c;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.cab-loja__busca {
+  position: relative;
+  display: block;
+  grid-area: busca;
+}
+
+.cab-loja__busca input {
+  width: 100%;
+  height: 44px;
+  padding: 0 46px 0 16px;
+  border: 1px solid #e3e7ec;
+  border-radius: 10px;
+  background: #f3f5f7;
+  color: #10141c;
+  font: inherit;
+  font-size: 15px;
+  color-scheme: light;
+  transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cab-loja__busca input::placeholder {
+  color: #8a94a3;
+}
+
+.cab-loja__busca input:focus {
+  border-color: var(--azul);
+  outline: none;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgb(36 80 232 / 14%);
+}
+
+.cab-loja__busca svg {
+  position: absolute;
+  top: 50%;
+  right: 14px;
+  width: 19px;
+  height: 19px;
+  color: #3b4558;
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+.cab-loja__acoes {
+  display: flex;
+  grid-area: acoes;
+  justify-content: flex-end;
+  gap: 2px;
+}
+
+.cab-loja__acao {
+  display: inline-flex;
+  height: 42px;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 10px;
+  background: none;
+  color: #10141c;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.18s ease, color 0.18s ease;
+}
+
+.cab-loja__acao svg {
+  width: 23px;
+  height: 23px;
+}
+
+/* No celular só os ícones; o texto aparece a partir do tablet. */
+.cab-loja__acao > span:not(.cab-loja__sacola) {
+  display: none;
+}
+
+.cab-loja__acao[aria-pressed="true"] {
+  color: var(--azul);
+}
+
+.cab-loja__acao:focus-visible,
+.cab-loja__marca:focus-visible,
+.cab-loja__categorias button:focus-visible {
+  outline: 2px solid var(--azul);
+  outline-offset: 2px;
+}
+
+.cab-loja__sacola {
+  position: relative;
+  display: grid;
+}
+
+.cab-loja__sacola b {
+  position: absolute;
+  top: -7px;
+  right: -9px;
+  display: grid;
+  min-width: 19px;
+  height: 19px;
+  padding: 0 5px;
+  place-items: center;
+  border: 2px solid #fff;
+  border-radius: 999px;
+  background: var(--azul);
+  color: #fff;
+  font-size: 10.5px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+/* menu de categorias */
+.cab-loja__categorias {
+  display: flex;
+  gap: 22px;
+  padding: 0 16px;
+  overflow-x: auto;
+  border-top: 1px solid #eceff3;
+  scrollbar-width: none;
+}
+
+.cab-loja__categorias::-webkit-scrollbar {
+  display: none;
+}
+
+.cab-loja__categorias button {
+  position: relative;
+  flex: 0 0 auto;
+  height: 46px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #4a5568;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.18s ease;
+}
+
+.cab-loja__categorias button::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  border-radius: 3px 3px 0 0;
+  background: var(--azul);
+  content: "";
+  opacity: 0;
+  transform: scaleX(0.4);
+  transition: opacity 0.2s ease, transform 0.25s ease;
+}
+
+.cab-loja__categorias button[aria-current="page"] {
+  color: #10141c;
+  font-weight: 800;
+}
+
+.cab-loja__categorias button[aria-current="page"]::after {
+  opacity: 1;
+  transform: none;
+}
+
+.cab-loja__categorias .cab-loja__ofertas {
+  color: #d92d3a;
+}
+
+.cab-loja__categorias .cab-loja__ofertas::after {
+  background: #d92d3a;
+}
+
+@media (hover: hover) {
+  .cab-loja__acao:hover {
+    background: #f1f3f5;
+  }
+
+  .cab-loja__categorias button:not([aria-current="page"]):hover {
+    color: #10141c;
+  }
+
+  .cab-loja__categorias button:not([aria-current="page"]):hover::after {
+    opacity: 0.35;
+    transform: none;
+  }
+}
+
+/* título da vitrine, ao lado do "Ordenar por" */
+.loja__resultado {
+  align-items: flex-end;
+}
+
+.loja__titulo {
+  display: flex;
+  min-width: 0;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+}
+
+.loja__titulo h1 {
+  margin: 0;
+  color: var(--texto-principal);
+  font-family: var(--fonte-destaque);
+  font-size: 26px;
+  font-style: italic;
+  font-weight: 800;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.loja__titulo span {
+  color: var(--texto-secundario);
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+section > .loja__titulo {
+  margin-bottom: 14px;
+}
+
+/* a página começa logo abaixo do cabeçalho (antes ela subia por cima do banner) */
+.loja {
+  margin-top: 18px;
+}
+
+@media (min-width: 640px) {
+  .cab-loja {
+    margin: 0 -24px;
+  }
+
+  .cab-loja__acao > span:not(.cab-loja__sacola) {
+    display: inline;
+  }
+
+  .cab-loja__barra {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-areas: "marca busca acoes";
+    gap: 20px;
+    padding: 16px 24px;
+  }
+
+  .cab-loja__categorias {
+    gap: 30px;
+    padding: 0 24px;
+  }
+}
+
+@media (min-width: 960px) {
+  .cab-loja {
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid rgb(255 255 255 / 8%);
+    border-radius: 20px;
+  }
+
+  .cab-loja__barra {
+    grid-template-columns: auto minmax(280px, 620px) auto;
+    justify-content: space-between;
+    gap: 32px;
+    padding: 20px 32px;
+  }
+
+  .cab-loja__marca img {
+    height: 38px;
+  }
+
+  .cab-loja__categorias {
+    justify-content: center;
+    gap: 44px;
+    padding: 0 32px;
+  }
+
+  .cab-loja__categorias button {
+    height: 52px;
+    font-size: 13px;
+  }
+
+  .loja {
+    margin-top: 26px;
+  }
+
+  .loja__titulo h1 {
+    font-size: 32px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cab-loja__aviso-texto {
+    animation: none;
+  }
+}

@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
-import Header from '../Header.jsx'
 import Gaveta from '../Gaveta.jsx'
 import { CATEGORIAS, listarProdutos } from '../../dados/loja.js'
 import { supabase } from '../../dados/supabase.js'
-import { adicionarAoCarrinho, definirQuantidade, quantidadeNoCarrinho } from '../../utils/carrinho.js'
+import { adicionarAoCarrinho, definirQuantidade, quantidadeNoCarrinho, resumoDoCarrinho } from '../../utils/carrinho.js'
 import { FILTROS_PADRAO, ORDENS, descontoPercentual, filtrarProdutos } from '../../utils/vitrine.js'
+import CabecalhoLoja from './CabecalhoLoja.jsx'
 import Carrinho from './Carrinho.jsx'
 import CardProduto, { PrecoProduto, SeletorQuantidade } from './CardProduto.jsx'
 import FotoProduto from './FotoProduto.jsx'
@@ -20,6 +20,7 @@ function PaginaLoja({ usuario, secaoInicial = 'produtos' }) {
   const [filtros, setFiltros] = useState(FILTROS_PADRAO)
   const [aberto, setAberto] = useState(null)
   const [carrinho, setCarrinho] = useCarrinho(usuario.id)
+  const [carrinhoAberto, setCarrinhoAberto] = useState(false)
 
   useEffect(() => {
     let ativo = true
@@ -44,6 +45,14 @@ function PaginaLoja({ usuario, secaoInicial = 'produtos' }) {
     .map((categoria) => ({ ...categoria, total: aVenda.filter((produto) => produto.categoria === categoria.id).length }))
     .filter(({ total }) => total > 0)
   const produtoAberto = aberto && estado.produtos.find(({ id }) => id === aberto)
+  const resumoCarrinho = resumoDoCarrinho(carrinho, estado.produtos)
+  // Título da vitrine, como "Mais vendidos" nas lojas: muda com a categoria escolhida.
+  const tituloVitrine = filtros.busca.trim()
+    ? `Resultados para “${filtros.busca.trim()}”`
+    : filtros.soPromocao
+      ? 'Ofertas'
+      : CATEGORIAS.find(({ id }) => id === filtros.categoria)?.nome ?? 'Todos os produtos'
+
   function mudarFiltro(mudanca) {
     setFiltros((atuais) => ({ ...atuais, ...mudanca }))
   }
@@ -52,10 +61,16 @@ function PaginaLoja({ usuario, secaoInicial = 'produtos' }) {
     setFiltros(FILTROS_PADRAO)
   }
 
-  const abas = [
-    { id: 'produtos', nome: 'Produtos' },
-    { id: 'pedidos', nome: 'Meus pedidos' },
-  ]
+  function escolherCategoria(id) {
+    setAba('produtos')
+    if (id === 'ofertas') mudarFiltro({ categoria: 'todas', soPromocao: true })
+    else mudarFiltro({ categoria: id, soPromocao: false })
+  }
+
+  function buscar(texto) {
+    setAba('produtos')
+    mudarFiltro({ busca: texto })
+  }
 
   function adicionar(produto) {
     setCarrinho((itens) => adicionarAoCarrinho(itens, produto))
@@ -67,66 +82,28 @@ function PaginaLoja({ usuario, secaoInicial = 'produtos' }) {
 
   return (
     <>
-      <Header
-        titulo="Suplementos"
-        saudacao=""
-        contexto="Loja Home Fit"
-        descricao="Reserve pelo app, retire na recepção e pague no balcão."
+      <CabecalhoLoja
+        aba={aba}
+        filtros={filtros}
+        categorias={categoriasComProduto}
+        emPromocao={emPromocao}
+        quantidadeNoCarrinho={resumoCarrinho.quantidadeTotal}
+        totalDoCarrinho={resumoCarrinho.total}
+        onAba={setAba}
+        onBusca={buscar}
+        onCategoria={escolherCategoria}
+        onAbrirCarrinho={() => setCarrinhoAberto(true)}
       />
 
       <div className="loja">
-        <div className="loja__abas" role="tablist" aria-label="Seções da loja">
-          {abas.map(({ id, nome }) => (
-            <button key={id} type="button" role="tab" aria-selected={aba === id} onClick={() => setAba(id)}>
-              {nome}
-            </button>
-          ))}
-        </div>
-
         {aba === 'produtos' && (
           <section aria-label="Produtos">
-            <div className="loja__filtros">
-              <div className="loja__barra-busca">
-                <label className="loja__busca">
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2" />
-                    <path d="m20 20-3.5-3.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                  </svg>
-                  <span className="visualmente-oculto">Buscar produto</span>
-                  <input
-                    type="search"
-                    placeholder="Buscar produto"
-                    value={filtros.busca}
-                    onChange={(event) => mudarFiltro({ busca: event.target.value })}
-                  />
-                </label>
-              </div>
-
-              {categoriasComProduto.length > 0 && (
-                <div className="loja__categorias" role="group" aria-label="Categorias">
-                  <button type="button" aria-pressed={filtros.categoria === 'todas' && !filtros.soPromocao}
-                    onClick={() => mudarFiltro({ categoria: 'todas', soPromocao: false })}>
-                    Tudo <small>{aVenda.length}</small>
-                  </button>
-                  {emPromocao > 0 && (
-                    <button type="button" aria-pressed={filtros.soPromocao}
-                      onClick={() => mudarFiltro({ soPromocao: !filtros.soPromocao })}>
-                      Ofertas <small>{emPromocao}</small>
-                    </button>
-                  )}
-                  {categoriasComProduto.map(({ id, nome, total }) => (
-                    <button key={id} type="button" aria-pressed={filtros.categoria === id}
-                      onClick={() => mudarFiltro({ categoria: filtros.categoria === id ? 'todas' : id })}>
-                      {nome} <small>{total}</small>
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-
             {!estado.carregando && aVenda.length > 0 && (
               <div className="loja__resultado">
-                <span aria-live="polite"><b>{visiveis.length}</b> {visiveis.length === 1 ? 'produto' : 'produtos'}</span>
+                <div className="loja__titulo">
+                  <h1>{tituloVitrine}</h1>
+                  <span aria-live="polite">{visiveis.length} {visiveis.length === 1 ? 'produto' : 'produtos'}</span>
+                </div>
                 <label className="loja__ordem">
                   <span>Ordenar por</span>
                   <select value={filtros.ordem} onChange={(event) => mudarFiltro({ ordem: event.target.value })}>
@@ -180,18 +157,26 @@ function PaginaLoja({ usuario, secaoInicial = 'produtos' }) {
           </section>
         )}
 
-        {aba === 'pedidos' && <MeusPedidos usuarioId={usuario.id} onVerProdutos={() => setAba('produtos')} />}
+        {aba === 'pedidos' && (
+          <section aria-label="Meus pedidos">
+            <div className="loja__titulo">
+              <h1>Meus pedidos</h1>
+            </div>
+            <MeusPedidos usuarioId={usuario.id} onVerProdutos={() => setAba('produtos')} />
+          </section>
+        )}
       </div>
 
-      {aba === 'produtos' && (
-        <Carrinho
-          itens={carrinho}
-          produtos={estado.produtos}
-          onItens={setCarrinho}
-          onPedidoFeito={recarregar}
-          onVerPedidos={() => setAba('pedidos')}
-        />
-      )}
+      <Carrinho
+        itens={carrinho}
+        produtos={estado.produtos}
+        onItens={setCarrinho}
+        onPedidoFeito={recarregar}
+        onVerPedidos={() => setAba('pedidos')}
+        aberto={carrinhoAberto}
+        onAberto={setCarrinhoAberto}
+        mostrarBarra={aba === 'produtos'}
+      />
 
       <Gaveta aberta={Boolean(produtoAberto)} titulo={produtoAberto?.nome ?? ''} onFechar={() => setAberto(null)} className="gaveta--clara"
         rodape={produtoAberto && (

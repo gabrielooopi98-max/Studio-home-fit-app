@@ -13,8 +13,9 @@ const PROBLEMAS = {
   estoque: 'Quantidade maior que o estoque.',
 }
 
-function Carrinho({ itens, produtos, onItens, onPedidoFeito, onVerPedidos }) {
-  const [aberto, setAberto] = useState(false)
+// "aberto" vem de fora: o carrinho abre pela barra flutuante ou pelo ícone do cabeçalho da loja.
+function Carrinho({ itens, produtos, onItens, onPedidoFeito, onVerPedidos, aberto, onAberto, mostrarBarra = true }) {
+  const setAberto = onAberto
   const [observacao, setObservacao] = useState('')
   const [enviando, setEnviando] = useState(false)
   const [erro, setErro] = useState('')
@@ -79,7 +80,7 @@ function Carrinho({ itens, produtos, onItens, onPedidoFeito, onVerPedidos }) {
   return (
     <>
       {/* Portal: a animação de troca de aba cria um contexto que prenderia o position: fixed. */}
-      {itens.length > 0 && !aberto && createPortal(
+      {mostrarBarra && itens.length > 0 && !aberto && createPortal(
         <button type="button" className="carrinho-barra" onClick={() => setAberto(true)}>
           <span className="carrinho-barra__icone" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none">
