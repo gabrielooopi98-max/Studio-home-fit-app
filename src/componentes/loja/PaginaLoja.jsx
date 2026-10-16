@@ -234,6 +234,7 @@ function PaginaLoja({ usuario, secaoInicial = 'produtos' }) {
       <Gaveta
         aberta={painelFiltros}
         titulo="Filtrar e ordenar"
+        className="gaveta--clara"
         onFechar={() => setPainelFiltros(false)}
         rodape={(
           <div className="carrinho__botoes">
@@ -298,7 +299,7 @@ function PaginaLoja({ usuario, secaoInicial = 'produtos' }) {
         </div>
       </Gaveta>
 
-      <Gaveta aberta={Boolean(produtoAberto)} titulo={produtoAberto?.nome ?? ''} onFechar={() => setAberto(null)}
+      <Gaveta aberta={Boolean(produtoAberto)} titulo={produtoAberto?.nome ?? ''} onFechar={() => setAberto(null)} className="gaveta--clara"
         rodape={produtoAberto && (
           <div className="detalhe-produto__acao">
             <PrecoProduto produto={produtoAberto} grande />

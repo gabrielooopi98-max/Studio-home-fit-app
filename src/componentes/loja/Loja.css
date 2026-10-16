@@ -2111,3 +2111,344 @@
   font-size: 13.5px;
   white-space: nowrap;
 }
+
+/* ==========================================================================
+   Página Loja clara (branco / cinza). O banner azul do topo e o menu
+   continuam iguais; o resto da página, a busca, os filtros, os pedidos e
+   os painéis da loja ficam claros, combinando com os cards de produto.
+   ========================================================================== */
+.app.app--loja {
+  background: #e9ecef;
+}
+
+.app--loja .loja {
+  color: #10141c;
+}
+
+/* abas Produtos / Meus pedidos */
+.app--loja .loja__abas {
+  border-color: #d6dbe2;
+  background: #fff;
+  box-shadow: 0 8px 20px -16px rgb(0 0 0 / 55%);
+}
+
+.app--loja .loja__abas button {
+  color: #5f6b7c;
+}
+
+.app--loja .loja__abas button[aria-selected="true"] {
+  background: var(--azul);
+  color: #fff;
+}
+
+/* busca e botão Filtrar */
+.app--loja .loja__busca svg {
+  color: #7a8596;
+}
+
+.app--loja .loja__busca input,
+.app--loja .loja__botao-filtro {
+  border-color: #d6dbe2;
+  background: #fff;
+  color: #10141c;
+}
+
+.app--loja .loja__busca input::placeholder {
+  color: #8a94a3;
+}
+
+.app--loja .loja__busca input:focus {
+  border-color: var(--azul-brilho);
+}
+
+.app--loja .loja__botao-filtro svg {
+  color: #5f6b7c;
+}
+
+.app--loja .loja__botao-filtro.ativo {
+  border-color: var(--azul-brilho);
+  background: #eaf0ff;
+}
+
+/* categorias (na página e no painel de filtros) */
+.app--loja .loja__categorias button,
+.gaveta--clara .loja__categorias button {
+  border-color: #d6dbe2;
+  background: #fff;
+  color: #3b4558;
+}
+
+.app--loja .loja__categorias button small,
+.gaveta--clara .loja__categorias button small {
+  color: #8a94a3;
+}
+
+.app--loja .loja__categorias button[aria-pressed="true"],
+.gaveta--clara .loja__categorias button[aria-pressed="true"] {
+  border-color: transparent;
+  background: #10141c;
+  color: #fff;
+}
+
+.app--loja .loja__categorias button[aria-pressed="true"] small,
+.gaveta--clara .loja__categorias button[aria-pressed="true"] small {
+  color: #b9c1cc;
+}
+
+/* contagem, ordenação e filtros aplicados */
+.app--loja .loja__resultado {
+  color: #5f6b7c;
+}
+
+.app--loja .loja__resultado b {
+  color: #10141c;
+}
+
+.app--loja .loja__ordem span {
+  color: #5f6b7c;
+}
+
+.app--loja .loja__ordem select {
+  border-color: #d6dbe2;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233b4558' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 10px center / 14px,
+    #fff;
+  color: #10141c;
+  color-scheme: light;
+}
+
+.app--loja .loja__etiquetas button {
+  border-color: #d6dbe2;
+  background: #fff;
+  color: #3b4558;
+}
+
+.app--loja .loja__etiquetas .loja__limpar {
+  border-color: transparent;
+  background: none;
+  color: #5f6b7c;
+}
+
+/* avisos (vitrine vazia, nada encontrado, nenhum pedido) */
+.app--loja .loja__aviso {
+  border-color: #c9d0da;
+  background: rgb(255 255 255 / 55%);
+  color: #5f6b7c;
+}
+
+.app--loja .loja__aviso strong {
+  color: #10141c;
+}
+
+.app--loja .loja__aviso button:not(.botao-primario) {
+  border-color: #d6dbe2;
+  background: #fff;
+  color: #10141c;
+}
+
+.app--loja .loja__erro,
+.gaveta--clara .loja__erro {
+  border-color: #f2b8b5;
+  background: #fdecea;
+  color: #a62a21;
+}
+
+.app--loja .loja__sucesso {
+  border-color: #bfe6cf;
+  background: #e9f8ef;
+  color: #1d5e3c;
+}
+
+.app--loja .loja__sucesso button {
+  background: rgb(0 0 0 / 5%);
+  color: #3b4558;
+}
+
+/* esqueleto enquanto carrega */
+.app--loja .esqueleto-card {
+  border-color: #dfe3e9;
+  background: #f6f7f9;
+}
+
+.app--loja .esqueleto {
+  background: #e3e7ec;
+}
+
+.app--loja .esqueleto::after {
+  background: linear-gradient(90deg, transparent 0%, rgb(255 255 255 / 70%) 50%, transparent 100%);
+}
+
+/* Meus pedidos */
+.app--loja .loja__secao-topo {
+  color: #5f6b7c;
+}
+
+.app--loja .botao-texto {
+  color: var(--azul);
+}
+
+.app--loja .cartao-pedido {
+  border-color: #dfe3e9;
+  background: #fff;
+  color: #10141c;
+  box-shadow: 0 8px 20px -16px rgb(0 0 0 / 55%);
+}
+
+.app--loja .cartao-pedido--recebido { border-left-color: var(--azul); }
+.app--loja .cartao-pedido--separado { border-left-color: #17804d; }
+.app--loja .cartao-pedido--retirado { border-left-color: #b9c1cc; }
+
+.app--loja .cartao-pedido__topo strong,
+.app--loja .cartao-pedido__itens b,
+.app--loja .cartao-pedido__rodape > span b {
+  color: #10141c;
+}
+
+.app--loja .cartao-pedido__topo small,
+.app--loja .cartao-pedido__obs,
+.app--loja .cartao-pedido__dica,
+.app--loja .cartao-pedido__rodape {
+  color: #5f6b7c;
+}
+
+.app--loja .cartao-pedido__itens li {
+  color: #3b4558;
+}
+
+.app--loja .cartao-pedido__rodape {
+  border-top-color: #e3e7ec;
+}
+
+.app--loja .status-pedido--recebido { background: #e6edff; color: #2747c7; }
+.app--loja .status-pedido--separado { background: #dcf5e7; color: #17804d; }
+.app--loja .status-pedido--retirado { background: #eceff3; color: #5f6b7c; }
+.app--loja .status-pedido--cancelado { background: #fdecea; color: #a62a21; }
+
+.app--loja .botao-perigo {
+  border-color: #f2b8b5;
+  background: #fff7f6;
+  color: #a62a21;
+}
+
+.app--loja .botao-perigo.confirmando {
+  border-color: transparent;
+  background: #d94848;
+  color: #fff;
+}
+
+/* painel "Filtrar e ordenar" */
+.gaveta--clara .painel-filtros legend {
+  color: #5f6b7c;
+}
+
+.gaveta--clara .painel-filtros__ordens label {
+  border-color: #d6dbe2;
+  background: #fff;
+  color: #10141c;
+}
+
+.gaveta--clara .painel-filtros__ordens label.marcado {
+  border-color: var(--azul-brilho);
+  background: #eaf0ff;
+  color: #1d3fbf;
+}
+
+.gaveta--clara .interruptor {
+  border-color: #dfe3e9;
+  background: #fff;
+}
+
+.gaveta--clara .interruptor b {
+  color: #10141c;
+}
+
+.gaveta--clara .interruptor small {
+  color: #6b7585;
+}
+
+.gaveta--clara .interruptor input {
+  background: #cfd5de;
+}
+
+.gaveta--clara .interruptor input:checked {
+  background: var(--azul-brilho);
+}
+
+/* detalhes do produto */
+.gaveta--clara .detalhe-produto__foto {
+  border: 1px solid #e3e7ec;
+  background: #fff;
+}
+
+.gaveta--clara .detalhe-produto__marca {
+  color: var(--azul);
+}
+
+.gaveta--clara .detalhe-produto__descricao {
+  color: #3b4558;
+}
+
+.gaveta--clara .detalhe-produto__estoque {
+  color: #6b7585;
+}
+
+.gaveta--clara .preco-produto strong {
+  color: #0b0f15;
+}
+
+.gaveta--clara .preco-produto s {
+  color: #8a94a3;
+}
+
+.gaveta--clara .preco-produto__economia {
+  color: #17804d;
+}
+
+.gaveta--clara .selo-esgotado {
+  border-color: #c9d0da;
+  color: #6b7585;
+}
+
+@media (hover: hover) {
+  .app--loja .loja__botao-filtro:hover,
+  .app--loja .loja__etiquetas button:not(.loja__limpar):hover {
+    border-color: #b9c1cc;
+    background: #f6f7f9;
+    color: #10141c;
+  }
+
+  .app--loja .loja__categorias button:not([aria-pressed="true"]):hover,
+  .gaveta--clara .loja__categorias button:not([aria-pressed="true"]):hover {
+    border-color: #b9c1cc;
+    background: #f6f7f9;
+    color: #10141c;
+  }
+
+  .app--loja .loja__abas button:not([aria-selected="true"]):hover {
+    background: #f1f3f5;
+    color: #10141c;
+  }
+
+  .gaveta--clara .painel-filtros__ordens label:not(.marcado):hover {
+    border-color: #b9c1cc;
+    background: #f6f7f9;
+  }
+
+  .app--loja .botao-perigo:not(.confirmando):hover {
+    border-color: #e9938d;
+    background: #fdecea;
+  }
+}
+
+@media (min-width: 960px) {
+  .app.app--loja {
+    background: #e9ecef;
+    box-shadow: none;
+  }
+}
+
+/* Em telas muito largas, as laterais fora do app também ficam claras na loja. */
+html:has(.app--loja),
+body:has(.app--loja) {
+  background: #e9ecef;
+}
