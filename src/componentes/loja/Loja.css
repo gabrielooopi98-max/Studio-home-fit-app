@@ -172,9 +172,13 @@
   border-radius: 999px;
   background: #0f141c;
   color: #c9d3ea;
+  /* Mesma fonte dos títulos do app, em maiúsculas e mais grossa. */
   font: inherit;
-  font-size: 12.5px;
-  font-weight: 700;
+  font-family: var(--fonte-destaque);
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
   scroll-snap-align: start;
   cursor: pointer;
   transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
@@ -182,8 +186,9 @@
 
 .loja__categorias button small {
   color: #6f7c92;
-  font-size: 11px;
-  font-weight: 700;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0;
 }
 
 .loja__categorias button:hover {
@@ -242,8 +247,11 @@
     #0f141c;
   color: var(--texto-principal);
   font: inherit;
-  font-size: 13px;
-  font-weight: 700;
+  font-family: var(--fonte-destaque);
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
   appearance: none;
   cursor: pointer;
 }
