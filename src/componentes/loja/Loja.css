@@ -2589,3 +2589,103 @@ section > .loja__titulo {
     animation: none;
   }
 }
+
+/* ---------- cabeçalho da loja no tema escuro do app ---------- */
+.cab-loja {
+  border-bottom: 1px solid rgb(160 172 240 / 14%);
+  background:
+    radial-gradient(ellipse 60% 120% at 100% 0%, rgb(36 80 232 / 16%), transparent 70%),
+    #0b1018;
+  color: var(--texto-principal);
+  box-shadow: 0 18px 36px -26px rgb(0 0 0 / 95%);
+}
+
+.cab-loja__aviso {
+  background: linear-gradient(90deg, #14307f, var(--azul) 50%, #14307f);
+  color: #fff;
+}
+
+.cab-loja__marca span {
+  background: var(--azul);
+  color: #fff;
+}
+
+.cab-loja__busca input {
+  border-color: #222c3b;
+  background: #121823;
+  color: var(--texto-principal);
+  color-scheme: dark;
+}
+
+.cab-loja__busca input::placeholder {
+  color: #6f7c92;
+}
+
+.cab-loja__busca input:focus {
+  border-color: var(--azul-brilho);
+  background: #141b27;
+  box-shadow: 0 0 0 3px rgb(82 118 242 / 18%);
+}
+
+.cab-loja__busca svg {
+  color: #8ea2cd;
+}
+
+.cab-loja__acao {
+  color: #e6eaf2;
+}
+
+.cab-loja__acao[aria-pressed="true"] {
+  color: var(--azul-claro);
+}
+
+.cab-loja__sacola b {
+  border-color: #0b1018;
+  background: var(--azul-brilho);
+}
+
+.cab-loja__acao:focus-visible,
+.cab-loja__marca:focus-visible,
+.cab-loja__categorias button:focus-visible {
+  outline-color: var(--azul-claro);
+}
+
+.cab-loja__categorias {
+  border-top-color: rgb(160 172 240 / 10%);
+}
+
+.cab-loja__categorias button {
+  color: #8b96a8;
+}
+
+.cab-loja__categorias button[aria-current="page"] {
+  color: #fff;
+}
+
+.cab-loja__categorias button::after {
+  background: var(--azul-brilho);
+}
+
+.cab-loja__categorias .cab-loja__ofertas {
+  color: #ff7a85;
+}
+
+.cab-loja__categorias .cab-loja__ofertas::after {
+  background: #ff7a85;
+}
+
+@media (hover: hover) {
+  .cab-loja__acao:hover {
+    background: rgb(255 255 255 / 6%);
+  }
+
+  .cab-loja__categorias button:not([aria-current="page"]):hover {
+    color: #e6eaf2;
+  }
+}
+
+@media (min-width: 960px) {
+  .cab-loja {
+    border: 1px solid rgb(160 172 240 / 14%);
+  }
+}

@@ -69,7 +69,7 @@ function CabecalhoLoja({
 
       <div className="cab-loja__barra">
         <button type="button" className="cab-loja__marca" onClick={() => onCategoria('todas')} aria-label="Loja Home Fit: ver todos os produtos">
-          <img src="/logo-academia/logo-homefit-escura.svg" alt="" />
+          <img src="/logo-academia/logo-homefit-branca.svg" alt="" />
           <span>Loja</span>
         </button>
 
