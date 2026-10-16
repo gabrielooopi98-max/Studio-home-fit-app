@@ -4,7 +4,7 @@ import Gaveta from '../Gaveta.jsx'
 import { CATEGORIAS, listarProdutos } from '../../dados/loja.js'
 import { supabase } from '../../dados/supabase.js'
 import { adicionarAoCarrinho, definirQuantidade, quantidadeNoCarrinho } from '../../utils/carrinho.js'
-import { FILTROS_PADRAO, ORDENS, descontoPercentual, filtrarProdutos, filtrosAtivos } from '../../utils/vitrine.js'
+import { FILTROS_PADRAO, ORDENS, descontoPercentual, filtrarProdutos } from '../../utils/vitrine.js'
 import Carrinho from './Carrinho.jsx'
 import CardProduto, { PrecoProduto, SeletorQuantidade } from './CardProduto.jsx'
 import FotoProduto from './FotoProduto.jsx'
@@ -18,7 +18,6 @@ function PaginaLoja({ usuario, secaoInicial = 'produtos' }) {
   const [estado, setEstado] = useState({ carregando: true, erro: '', produtos: [] })
   const [tentativa, setTentativa] = useState(0)
   const [filtros, setFiltros] = useState(FILTROS_PADRAO)
-  const [painelFiltros, setPainelFiltros] = useState(false)
   const [aberto, setAberto] = useState(null)
   const [carrinho, setCarrinho] = useCarrinho(usuario.id)
 
@@ -40,22 +39,11 @@ function PaginaLoja({ usuario, secaoInicial = 'produtos' }) {
   // O dono vê também os inativos; a vitrine mostra só o que está à venda.
   const aVenda = estado.produtos.filter((produto) => produto.ativo)
   const visiveis = filtrarProdutos(estado.produtos, filtros)
-  const quantosFiltros = filtrosAtivos(filtros)
   const emPromocao = aVenda.filter((produto) => descontoPercentual(produto) > 0).length
   const categoriasComProduto = CATEGORIAS
     .map((categoria) => ({ ...categoria, total: aVenda.filter((produto) => produto.categoria === categoria.id).length }))
     .filter(({ total }) => total > 0)
   const produtoAberto = aberto && estado.produtos.find(({ id }) => id === aberto)
-  const nomeOrdem = ORDENS.find(({ id }) => id === filtros.ordem)?.nome
-
-  // Etiquetas removíveis com o que está filtrando a vitrine agora.
-  const etiquetas = [
-    filtros.busca.trim() && { chave: 'busca', texto: `“${filtros.busca.trim()}”`, limpar: { busca: '' } },
-    filtros.ordem !== 'relevancia' && { chave: 'ordem', texto: nomeOrdem, limpar: { ordem: 'relevancia' } },
-    filtros.soPromocao && { chave: 'promo', texto: 'Com desconto', limpar: { soPromocao: false } },
-    filtros.esconderEsgotados && { chave: 'esgotados', texto: 'Sem esgotados', limpar: { esconderEsgotados: false } },
-  ].filter(Boolean)
-
   function mudarFiltro(mudanca) {
     setFiltros((atuais) => ({ ...atuais, ...mudanca }))
   }
@@ -112,21 +100,6 @@ function PaginaLoja({ usuario, secaoInicial = 'produtos' }) {
                     onChange={(event) => mudarFiltro({ busca: event.target.value })}
                   />
                 </label>
-                <button
-                  type="button"
-                  className={`loja__botao-filtro${quantosFiltros ? ' ativo' : ''}`}
-                  aria-haspopup="dialog"
-                  onClick={() => setPainelFiltros(true)}
-                >
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                    <circle cx="16" cy="6" r="2" stroke="currentColor" strokeWidth="2" />
-                    <circle cx="10" cy="12" r="2" stroke="currentColor" strokeWidth="2" />
-                    <circle cx="18" cy="18" r="2" stroke="currentColor" strokeWidth="2" />
-                  </svg>
-                  <span>Filtrar</span>
-                  {quantosFiltros > 0 && <b aria-label={`${quantosFiltros} ativos`}>{quantosFiltros}</b>}
-                </button>
               </div>
 
               {categoriasComProduto.length > 0 && (
@@ -160,17 +133,6 @@ function PaginaLoja({ usuario, secaoInicial = 'produtos' }) {
                     {ORDENS.map(({ id, nome }) => <option key={id} value={id}>{nome}</option>)}
                   </select>
                 </label>
-              </div>
-            )}
-
-            {etiquetas.length > 0 && (
-              <div className="loja__etiquetas" aria-label="Filtros aplicados">
-                {etiquetas.map(({ chave, texto, limpar }) => (
-                  <button key={chave} type="button" onClick={() => mudarFiltro(limpar)} aria-label={`Remover filtro ${texto}`}>
-                    {texto} <span aria-hidden="true">✕</span>
-                  </button>
-                ))}
-                <button type="button" className="loja__limpar" onClick={limparFiltros}>Limpar tudo</button>
               </div>
             )}
 
@@ -230,73 +192,6 @@ function PaginaLoja({ usuario, secaoInicial = 'produtos' }) {
           onVerPedidos={() => setAba('pedidos')}
         />
       )}
-
-      <Gaveta
-        aberta={painelFiltros}
-        titulo="Filtrar e ordenar"
-        onFechar={() => setPainelFiltros(false)}
-        rodape={(
-          <div className="carrinho__botoes">
-            <button type="button" className="botao-secundario" onClick={limparFiltros} disabled={!quantosFiltros && filtros.categoria === 'todas'}>
-              Limpar
-            </button>
-            <button type="button" className="botao-primario" onClick={() => setPainelFiltros(false)}>
-              Ver {visiveis.length} {visiveis.length === 1 ? 'produto' : 'produtos'}
-            </button>
-          </div>
-        )}
-      >
-        <div className="painel-filtros">
-          <fieldset>
-            <legend>Ordenar por</legend>
-            <div className="painel-filtros__ordens">
-              {ORDENS.map(({ id, nome }) => (
-                <label key={id} className={filtros.ordem === id ? 'marcado' : ''}>
-                  <input type="radio" name="ordem" value={id} checked={filtros.ordem === id}
-                    onChange={() => mudarFiltro({ ordem: id })} />
-                  <span>{nome}</span>
-                </label>
-              ))}
-            </div>
-          </fieldset>
-
-          <fieldset>
-            <legend>Mostrar</legend>
-            <label className="interruptor">
-              <span>
-                <b>Só produtos com desconto</b>
-                <small>{emPromocao} {emPromocao === 1 ? 'oferta disponível' : 'ofertas disponíveis'}</small>
-              </span>
-              <input type="checkbox" role="switch" checked={filtros.soPromocao}
-                onChange={(event) => mudarFiltro({ soPromocao: event.target.checked })} />
-            </label>
-            <label className="interruptor">
-              <span>
-                <b>Esconder esgotados</b>
-                <small>Mostra só o que dá para reservar agora</small>
-              </span>
-              <input type="checkbox" role="switch" checked={filtros.esconderEsgotados}
-                onChange={(event) => mudarFiltro({ esconderEsgotados: event.target.checked })} />
-            </label>
-          </fieldset>
-
-          {categoriasComProduto.length > 0 && (
-            <fieldset>
-              <legend>Categoria</legend>
-              <div className="loja__categorias loja__categorias--quebra">
-                <button type="button" aria-pressed={filtros.categoria === 'todas'} onClick={() => mudarFiltro({ categoria: 'todas' })}>
-                  Todas
-                </button>
-                {categoriasComProduto.map(({ id, nome, total }) => (
-                  <button key={id} type="button" aria-pressed={filtros.categoria === id} onClick={() => mudarFiltro({ categoria: id })}>
-                    {nome} <small>{total}</small>
-                  </button>
-                ))}
-              </div>
-            </fieldset>
-          )}
-        </div>
-      </Gaveta>
 
       <Gaveta aberta={Boolean(produtoAberto)} titulo={produtoAberto?.nome ?? ''} onFechar={() => setAberto(null)} className="gaveta--clara"
         rodape={produtoAberto && (
