@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import Header from '../Header.jsx'
 import { chaveDoDia } from '../../utils/checkins.js'
-import { calcularConquistas } from '../../utils/conquistas.js'
 import { registrarPeso, removerPeso, variacaoDePeso } from '../../utils/perfil.js'
 import { formatarTelefone, somenteDigitos, telefoneValido } from '../../utils/telefone.js'
 import { formatarPeso, recordesPessoais } from '../area-treinos/treinoLocal.js'
@@ -13,13 +12,11 @@ function dataCurta(dia) {
   return formatoData.format(new Date(`${dia}T12:00:00`)).replace('.', '')
 }
 
-function PaginaConta({ perfil, email, onAlterarPerfil, onSair, onAbrirPainel, checkins, treinos }) {
+function PaginaConta({ perfil, email, onAlterarPerfil, onSair, onAbrirPainel, treinos }) {
   const [pesoDigitado, setPesoDigitado] = useState('')
   const [erroPeso, setErroPeso] = useState('')
   const [telefoneDigitado, setTelefoneDigitado] = useState(() => formatarTelefone(perfil.telefone))
   const telefoneIncompleto = telefoneDigitado !== '' && !telefoneValido(telefoneDigitado)
-  const conquistas = calcularConquistas({ checkins, treinos, metaSemanal: perfil.metaSemanal })
-  const desbloqueadas = conquistas.filter(({ conquistada }) => conquistada).length
   const recordes = recordesPessoais(treinos)
   const variacao = variacaoDePeso(perfil.pesos)
   const ultimosPesos = [...perfil.pesos].reverse().slice(0, 6)
@@ -49,7 +46,7 @@ function PaginaConta({ perfil, email, onAlterarPerfil, onSair, onAbrirPainel, ch
         titulo={perfil.nome || 'Seu perfil'}
         saudacao=""
         contexto="Minha conta"
-        descricao="Suas metas, evolução, recordes e conquistas."
+        descricao="Seu perfil, metas, peso e recordes."
       />
 
       <div className="conta">
@@ -171,31 +168,6 @@ function PaginaConta({ perfil, email, onAlterarPerfil, onSair, onAbrirPainel, ch
               ))}
             </ol>
           )}
-        </section>
-
-        <section className="conta-card conta-conquistas" aria-labelledby="conta-conquistas-titulo">
-          <div className="conta-card__topo">
-            <h2 id="conta-conquistas-titulo">Conquistas</h2>
-            <span>{desbloqueadas}/{conquistas.length}</span>
-          </div>
-          <ul className="conta-conquistas__grade">
-            {conquistas.map((conquista) => (
-              <li
-                key={conquista.id}
-                className={conquista.conquistada ? 'conquistada' : ''}
-                aria-label={`${conquista.titulo}: ${conquista.descricao}. ${conquista.conquistada ? 'Desbloqueada' : `Progresso ${conquista.atual} de ${conquista.alvo}`}`}
-              >
-                <span className="conta-conquistas__icone" aria-hidden="true">{conquista.icone}</span>
-                <strong>{conquista.titulo}</strong>
-                <small>{conquista.descricao}</small>
-                {!conquista.conquistada && (
-                  <span className="conta-conquistas__barra" aria-hidden="true">
-                    <i style={{ width: `${Math.min(100, (conquista.atual / conquista.alvo) * 100)}%` }} />
-                  </span>
-                )}
-              </li>
-            ))}
-          </ul>
         </section>
 
         <section className="conta-card conta-sessao" aria-labelledby="conta-sessao-titulo">

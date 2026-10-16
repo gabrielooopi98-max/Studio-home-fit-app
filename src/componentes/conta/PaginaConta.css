@@ -184,11 +184,6 @@
 
 .conta-peso__lista,
 .conta-recordes__lista,
-.conta-conquistas__grade {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
 
 .conta-peso__lista li {
   display: grid;
@@ -276,68 +271,6 @@
 .conta-recordes__lista b small {
   margin-left: 2px;
   font-size: 12px;
-}
-
-.conta-conquistas__grade {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-}
-
-.conta-conquistas__grade li {
-  display: grid;
-  align-content: start;
-  gap: 4px;
-  padding: 14px 12px;
-  border: 1px solid #1f2736;
-  border-radius: 16px;
-  background: #111723;
-  color: #7f8ba0;
-}
-
-.conta-conquistas__grade li.conquistada {
-  border-color: rgb(255 197 61 / 40%);
-  background:
-    radial-gradient(circle at 50% 0%, rgb(255 197 61 / 16%), transparent 60%),
-    #111723;
-  color: var(--texto-principal);
-}
-
-.conta-conquistas__icone {
-  margin-bottom: 4px;
-  font-size: 30px;
-  filter: grayscale(1) opacity(0.4);
-}
-
-.conquistada .conta-conquistas__icone {
-  filter: none;
-}
-
-.conta-conquistas__grade strong {
-  font-family: var(--fonte-destaque);
-  font-size: 17px;
-  font-weight: 800;
-  text-transform: uppercase;
-}
-
-.conta-conquistas__grade small {
-  font-size: 11px;
-  line-height: 1.35;
-}
-
-.conta-conquistas__barra {
-  height: 4px;
-  margin-top: 6px;
-  overflow: hidden;
-  border-radius: 999px;
-  background: #1d2533;
-}
-
-.conta-conquistas__barra i {
-  display: block;
-  height: 100%;
-  border-radius: inherit;
-  background: var(--azul-brilho);
 }
 
 .conta-sessao__linha {
@@ -437,23 +370,18 @@
     padding: 24px;
   }
 
-  .conta-conquistas__grade {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+  /* Perfil (o maior) ocupa duas linhas à esquerda; peso e conta empilham à direita. */
+  .conta {
+    grid-template-areas:
+      "perfil peso"
+      "perfil sessao"
+      "recordes sessao";
   }
 
-  /* Duas colunas sem buracos: perfil, peso, recordes e conta empilhados à esquerda;
-     conquistas ocupando a coluna da direita inteira. */
-  .conta-perfil,
-  .conta-peso,
-  .conta-recordes,
-  .conta-sessao {
-    grid-column: 1;
-  }
-
-  .conta-conquistas {
-    grid-column: 2;
-    grid-row: 1 / span 4;
-  }
+  .conta-perfil { grid-area: perfil; }
+  .conta-peso { grid-area: peso; }
+  .conta-recordes { grid-area: recordes; }
+  .conta-sessao { grid-area: sessao; }
 }
 
 @media (min-width: 640px) and (max-width: 959px) {
@@ -463,13 +391,8 @@
   }
 
   .conta__erro,
-  .conta__nota,
-  .conta-conquistas {
+  .conta__nota {
     grid-column: 1 / -1;
-  }
-
-  .conta-conquistas__grade {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 

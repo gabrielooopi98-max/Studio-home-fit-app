@@ -45,7 +45,7 @@ function SequenciaCard({ checkins, meta, treinos, onAbrirConta }) {
       <button className="sequencia__rodape" type="button" onClick={onAbrirConta}>
         <span><strong>{totalTreinos}</strong> treinos</span>
         <span><strong>{totalRecordes}</strong> recordes</span>
-        <span className="sequencia__link">Conquistas →</span>
+        <span className="sequencia__link">Ver recordes →</span>
       </button>
     </section>
   )

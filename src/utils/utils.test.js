@@ -2,7 +2,6 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import { carregarCheckins, salvarCheckin, sequenciaDeSemanas, ultimasSemanas } from './checkins.js'
 import { PERFIL_PADRAO, registrarPeso, validarPerfil, variacaoDePeso } from './perfil.js'
-import { calcularConquistas } from './conquistas.js'
 
 function armazenamentoFalso(inicial = {}) {
   const dados = new Map(Object.entries(inicial))
@@ -49,12 +48,4 @@ test('perfil registra um peso por dia e calcula a variação', () => {
   assert.deepEqual(variacaoDePeso(perfil.pesos), { desde: '2026-10-01', diferenca: -0.8 })
   assert.throws(() => registrarPeso(perfil, '2026-10-09', 0))
   assert.throws(() => validarPerfil({ ...perfil, metaSemanal: 9 }))
-})
-
-test('conquistas refletem check-ins e treinos', () => {
-  const conquistas = calcularConquistas({
-    checkins: ['2026-10-05'], treinos: { versao: 1, sessoes: {} }, metaSemanal: 3, hoje: new Date(2026, 9, 7),
-  })
-  assert.equal(conquistas.find(({ id }) => id === 'primeiro-checkin').conquistada, true)
-  assert.equal(conquistas.find(({ id }) => id === 'primeiro-treino').conquistada, false)
 })

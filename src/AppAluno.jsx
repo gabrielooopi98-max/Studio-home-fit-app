@@ -121,7 +121,6 @@ function AppAluno({ usuario, onSair }) {
               onAlterarPerfil={atualizarPerfil}
               onSair={onSair}
               onAbrirPainel={equipe ? () => setModo('admin') : null}
-              checkins={checkins}
               treinos={treinos}
             />
           </div>
