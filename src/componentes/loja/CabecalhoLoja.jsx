@@ -1,7 +1,4 @@
-import { useEffect, useState } from 'react'
 import { formatarPreco } from '../../utils/dinheiro.js'
-
-const INTERVALO_AVISO = 4500
 
 function IconeBusca() {
   return (
@@ -30,43 +27,17 @@ function IconeSacola() {
   )
 }
 
-// Faixa preta do topo: as mensagens vão trocando sozinhas.
-function FaixaDeAviso({ mensagens }) {
-  const [indice, setIndice] = useState(0)
-
-  useEffect(() => {
-    if (mensagens.length < 2) return undefined
-    const id = window.setInterval(() => setIndice((atual) => (atual + 1) % mensagens.length), INTERVALO_AVISO)
-    return () => window.clearInterval(id)
-  }, [mensagens.length])
-
-  const atual = mensagens[indice % mensagens.length]
-  return (
-    <div className="cab-loja__aviso">
-      <span key={atual} className="cab-loja__aviso-texto">{atual}</span>
-    </div>
-  )
-}
-
-// Cabeçalho da loja, no estilo das lojas de suplemento: aviso, logo, busca,
+// Cabeçalho da loja, no estilo das lojas de suplemento: logo, busca,
 // pedidos e carrinho, e o menu de categorias logo abaixo.
 function CabecalhoLoja({
   aba, filtros, categorias, emPromocao, quantidadeNoCarrinho, totalDoCarrinho,
   onAba, onBusca, onCategoria, onAbrirCarrinho,
 }) {
-  const mensagens = [
-    'Reserve pelo app e retire na recepção',
-    'Pague no balcão: Pix, cartão ou dinheiro',
-    emPromocao > 0 && `${emPromocao} ${emPromocao === 1 ? 'produto com desconto' : 'produtos com desconto'} na loja`,
-  ].filter(Boolean)
-
   const naVitrine = aba === 'produtos'
   const ativa = (id) => naVitrine && (id === 'ofertas' ? filtros.soPromocao : !filtros.soPromocao && filtros.categoria === id)
 
   return (
     <header className="cab-loja">
-      <FaixaDeAviso mensagens={mensagens} />
-
       <div className="cab-loja__barra">
         <button type="button" className="cab-loja__marca" onClick={() => onCategoria('todas')} aria-label="Loja Home Fit: ver todos os produtos">
           <img src="/logo-academia/logo-homefit-branca.svg" alt="" />

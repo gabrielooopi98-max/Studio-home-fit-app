@@ -2230,30 +2230,6 @@
   box-shadow: 0 14px 30px -24px rgb(0 0 0 / 90%);
 }
 
-/* faixa preta com mensagens que trocam sozinhas */
-.cab-loja__aviso {
-  display: grid;
-  height: 34px;
-  place-items: center;
-  overflow: hidden;
-  background: #0b0f15;
-  color: #fff;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-align: center;
-  text-transform: uppercase;
-}
-
-.cab-loja__aviso-texto {
-  padding: 0 12px;
-  animation: cab-loja-aviso 0.5s ease both;
-}
-
-@keyframes cab-loja-aviso {
-  from { opacity: 0; transform: translateY(8px); }
-}
-
 /* barra branca: no celular logo + ações em cima e a busca embaixo */
 .cab-loja__barra {
   display: grid;
@@ -2584,11 +2560,6 @@ section > .loja__titulo {
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .cab-loja__aviso-texto {
-    animation: none;
-  }
-}
 
 /* ---------- cabeçalho da loja no tema escuro do app ---------- */
 .cab-loja {
@@ -2598,11 +2569,6 @@ section > .loja__titulo {
     #0b1018;
   color: var(--texto-principal);
   box-shadow: 0 18px 36px -26px rgb(0 0 0 / 95%);
-}
-
-.cab-loja__aviso {
-  background: linear-gradient(90deg, #14307f, var(--azul) 50%, #14307f);
-  color: #fff;
 }
 
 .cab-loja__marca span {
@@ -2693,4 +2659,26 @@ section > .loja__titulo {
 /* Lista de produtos: só o "Ordenar por", à direita. */
 .loja__resultado--so-ordem {
   justify-content: flex-end;
+}
+
+/* Cabeçalho da loja preso no topo ao rolar a lista (busca, carrinho e categorias sempre à mão). */
+.cab-loja {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+@media (min-width: 960px) {
+  .cab-loja {
+    top: 14px;
+  }
+}
+
+@media (min-width: 960px) {
+  /* Cobre o espaço acima do cabeçalho preso, para os produtos não aparecerem passando por cima dele. */
+  .cab-loja {
+    box-shadow:
+      0 -30px 0 4px var(--fundo-app),
+      0 18px 36px -26px rgb(0 0 0 / 95%);
+  }
 }
