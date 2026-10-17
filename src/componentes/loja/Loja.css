@@ -2689,3 +2689,8 @@ section > .loja__titulo {
     border: 1px solid rgb(160 172 240 / 14%);
   }
 }
+
+/* Lista de produtos: só o "Ordenar por", à direita. */
+.loja__resultado--so-ordem {
+  justify-content: flex-end;
+}

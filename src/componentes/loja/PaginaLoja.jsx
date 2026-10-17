@@ -46,12 +46,6 @@ function PaginaLoja({ usuario, secaoInicial = 'produtos' }) {
     .filter(({ total }) => total > 0)
   const produtoAberto = aberto && estado.produtos.find(({ id }) => id === aberto)
   const resumoCarrinho = resumoDoCarrinho(carrinho, estado.produtos)
-  // Título da vitrine, como "Mais vendidos" nas lojas: muda com a categoria escolhida.
-  const tituloVitrine = filtros.busca.trim()
-    ? `Resultados para “${filtros.busca.trim()}”`
-    : filtros.soPromocao
-      ? 'Ofertas'
-      : CATEGORIAS.find(({ id }) => id === filtros.categoria)?.nome ?? 'Todos'
 
   function mudarFiltro(mudanca) {
     setFiltros((atuais) => ({ ...atuais, ...mudanca }))
@@ -99,11 +93,7 @@ function PaginaLoja({ usuario, secaoInicial = 'produtos' }) {
         {aba === 'produtos' && (
           <section aria-label="Produtos">
             {!estado.carregando && aVenda.length > 0 && (
-              <div className="loja__resultado">
-                <div className="loja__titulo">
-                  <h1>{tituloVitrine}</h1>
-                  <span aria-live="polite">{visiveis.length} {visiveis.length === 1 ? 'produto' : 'produtos'}</span>
-                </div>
+              <div className="loja__resultado loja__resultado--so-ordem">
                 <label className="loja__ordem">
                   <span>Ordenar por</span>
                   <select value={filtros.ordem} onChange={(event) => mudarFiltro({ ordem: event.target.value })}>
