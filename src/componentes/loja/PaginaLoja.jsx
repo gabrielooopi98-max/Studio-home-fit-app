@@ -51,7 +51,7 @@ function PaginaLoja({ usuario, secaoInicial = 'produtos' }) {
     ? `Resultados para “${filtros.busca.trim()}”`
     : filtros.soPromocao
       ? 'Ofertas'
-      : CATEGORIAS.find(({ id }) => id === filtros.categoria)?.nome ?? 'Todos os produtos'
+      : CATEGORIAS.find(({ id }) => id === filtros.categoria)?.nome ?? 'Todos'
 
   function mudarFiltro(mudanca) {
     setFiltros((atuais) => ({ ...atuais, ...mudanca }))

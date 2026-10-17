@@ -1,7 +1,7 @@
 // Chamadas da loja. Diferente do treino, comprar exige internet: tudo aqui é direto no servidor.
 
 export const CATEGORIAS = [
-  { id: 'proteinas', nome: 'Proteínas' },
+  { id: 'proteinas', nome: 'Whey Protein' },
   { id: 'creatina', nome: 'Creatina' },
   { id: 'pre-treino', nome: 'Pré-treino' },
   { id: 'aminoacidos', nome: 'Aminoácidos' },

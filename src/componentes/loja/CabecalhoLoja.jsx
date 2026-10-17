@@ -103,7 +103,7 @@ function CabecalhoLoja({
 
       <nav className="cab-loja__categorias" aria-label="Categorias">
         <button type="button" aria-current={ativa('todas') ? 'page' : undefined} onClick={() => onCategoria('todas')}>
-          Todos os produtos
+          Todos
         </button>
         {emPromocao > 0 && (
           <button type="button" className="cab-loja__ofertas" aria-current={ativa('ofertas') ? 'page' : undefined} onClick={() => onCategoria('ofertas')}>
